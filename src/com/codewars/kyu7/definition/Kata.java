@@ -1,4 +1,4 @@
-package com.codewars.kyu7.Definition;
+package com.codewars.kyu7.definition;
 
 import java.util.ArrayList;
 import java.util.List;
