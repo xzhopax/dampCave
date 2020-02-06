@@ -1,17 +1,23 @@
 package org.stepik.javaBasic.robot;
 
 public class Robot {
+    int x;
+    int y;
+    Direction dir;
 
     public Direction getDirection() {
         // текущее направление взгляда
+        return dir;
     }
 
     public int getX() {
         // текущая координата X
+        return x;
     }
 
     public int getY() {
         // текущая координата Y
+        return y;
     }
 
     public void turnLeft() {
