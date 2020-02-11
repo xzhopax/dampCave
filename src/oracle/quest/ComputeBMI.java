@@ -1,4 +1,4 @@
-package oracle;
+package oracle.quest;
 
 public class ComputeBMI {
     public static void main(String[] args) {
