@@ -1,4 +1,4 @@
-package oracle.quest;
+package oracle.quest1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
