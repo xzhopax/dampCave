@@ -1,14 +1,13 @@
 package oracle.quest3;
 
-public class Cards {
+public class Card {
 
-    private double credits = 0d;
-    private int tickets = 0;
-    private int numberCard = 0;
-    static int counter;
+    private double credits;
+    private int tickets;
+    private int numberCard;
+    private static int counter;
 
     public double getCredits() {
-        System.out.print("Коллочество ваших кредитов : ");
         return credits;
     }
 
@@ -18,8 +17,7 @@ public class Cards {
         } else System.out.println("Вы пытаетесь нарваться на коллекторов, лучше пополните свой баланс");
     }
 
-    public int getTickets() {
-        System.out.print("Колличество ваших билетов составляет : ");
+    protected int getTickets() {
         return tickets;
     }
 
@@ -29,15 +27,20 @@ public class Cards {
         } else System.out.println("билетов не может быть меньше 0");
     }
 
-    public int getNumberCard() {
-        System.out.print("Номер вашей карты : ");
+    protected int getNumberCard() {
         return numberCard;
     }
 
-    public Cards (){
-        this.numberCard = counter = counter + 1;
-        this.tickets = 0;
-        this.credits = 0;
+    protected void getBalanceCard(){
+        System.out.printf("Номер карты : %d\n", getNumberCard());
+        System.out.println("Баланс Вашей карты :");
+        System.out.printf("1. Кредиты : %.1f\n", getCredits());
+        System.out.printf("2. Билетов : %d\n", getTickets());
+        System.out.println("------------");
+    }
+
+    public Card(){
+        this.numberCard = counter ++;
     }
 
 }

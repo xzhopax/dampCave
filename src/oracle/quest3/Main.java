@@ -3,20 +3,29 @@ package oracle.quest3;
 public class Main {
 
     public static void main(String[] args) {
-        Cards c1 = new Cards();
-        System.out.println(c1.getNumberCard());
-        System.out.println(c1.getCredits());
-        System.out.println(c1.getTickets());
+      Card c1 = new Card();
 
-        Cards c2 = new Cards();
-        System.out.println(c2.getNumberCard());
+       Card c2 = new Card();
 
-        Cards c3 = new Cards();
-        System.out.println(c3.getNumberCard());
+       Terminal t1 = new Terminal(100,c1);
+       Game g0 = new Game(c1);
 
-        c1.setCredits(8);
-        ;
-       // System.out.println(c1.getCredits());
+        Terminal t4 = new Terminal(100, c2);
+        Game g1 = new Game(c2);
+        Game g2 = new Game(c2);
+
+
+        t4.getBalanceCard(c2);
+
+        t4.getListPrize();
+        t4.getPrize(c2,1);
+
+        t4.transferMap(c1,c2);
+        t4.getBalanceCard(c1);
+        t4.getBalanceCard(c2);
+
+
+
 
     }
 }
