@@ -1,18 +1,27 @@
 package oracle.quest4;
 
-public class Main {
-    public static void main(String[] args) {
+import java.io.IOException;
 
-        Game seson1 = new Game();
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+        Scheduler seson1 = new Scheduler();
 
         seson1.registredTeam(new Team("Зенит"));
         seson1.registredTeam(new Team("Спартак"));
         seson1.registredTeam(new Team("Динамо"));
         seson1.registredTeam(new Team("ЦСКА"));
 
-        seson1.startGame(1,-5);
-        seson1.startGame(2,4);
-        seson1.startGame(3,10);
+
+        seson1.season();
+
+
+
+
+
+
+
+
 
     }
 }
