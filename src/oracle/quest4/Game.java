@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    private int Temperature;
+    private int temperature;
     private List<Team> registred = new ArrayList<>();
     protected List<Integer> match = new ArrayList<>();
     protected static List<Game> liga = new ArrayList<>();
@@ -25,11 +25,11 @@ public class Game {
     }
 
     protected int getTemperature() {
-        return Temperature;
+        return temperature;
     }
 
     protected void setTemperature(int temperature) {
-        Temperature = temperature;
+        this.temperature = temperature;
     }
 
     protected List<Team> getRegistred() {
@@ -81,7 +81,7 @@ public class Game {
          }
      }
 
-    protected void startGame(int nameGame, int temperature){
+    protected Game startGame(int nameGame, int temperature){
         this.setNameGame(nameGame);
         this.setTemperature(temperature);
 
@@ -95,10 +95,11 @@ public class Game {
             vsRandom(); // перемешивает команды учавствующие в матче
             awayTeam(registred.get(0), registred.get(1)); // раставляем перемешанные команды из листа команд
             homeTeam(registred.get(2), registred.get(3)); // раставляем перемешанные команды из листа команд
-            liga.add(this);
+        } return new Game();
 
-        }
-
+    }
+    public void printRegistred(){
+        System.out.println(registred.size());
     }
 
     public void printGame(){

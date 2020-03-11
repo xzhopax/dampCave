@@ -29,7 +29,7 @@ public class Scheduler extends Game {
                     Game.nameMatch--;
 
                 } else if (line.matches("\\d++")) { // если целое положительное число
-                     match.add(Integer.parseInt(line));
+                     Game.liga.add(startGame(nameMatch,Integer.parseInt(line)));
                     Game.count = 0;
 
                 } else   if (line.matches("\\D") || line.matches("(([-+])?\\d+(\\.\\d+)?)+")){ // все остальное
@@ -49,12 +49,13 @@ public class Scheduler extends Game {
             for (Team t : getRegistred()){
                 t.printTeam();
             }
-
-            for (Game g : liga){
-                g.printGame();
+            for (int i = 0; i < liga.size()-1; i++){
+                liga.get(i).printGame();
             }
-            System.out.printf("Hottest Temp: %d\n", Collections.max(match));
-            System.out.printf("Average Temp: %.1f\n", (double)Collections.max(match)/2);
+
+
+//            System.out.printf("Hottest Temp: %d\n", Collections.max(match));
+//            System.out.printf("Average Temp: %.1f\n", (double)Collections.max(match)/2);
 
         }
 
