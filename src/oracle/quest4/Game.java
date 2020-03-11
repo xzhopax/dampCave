@@ -44,7 +44,7 @@ public class Game {
         Collections.shuffle(registred);
     }
 
-     protected void homeTeam(Team one, Team two){
+    protected void homeTeam(Team one, Team two){
         one.setPointGoal(one.random()); // случайное число
         two.setPointGoal(two.random()); // случайное число
         one.setAllGoal(one.getAllGoal() + one.getPointGoal()); // случайное число присваиваем в голы
@@ -62,24 +62,24 @@ public class Game {
             one.setTie(one.getTie() + 1);
             two.setTie(two.getTie() + 1);
         }
-     }
-     protected void awayTeam(Team one, Team two){
-         one.setPointGoal(one.random()); // случайное число
-         two.setPointGoal(two.random()); // случайное число
-         one.setAllGoal(one.getAllGoal() + one.getPointGoal()); // случайное число присваиваем в голы
-         two.setAllGoal(two.getAllGoal() + two.getPointGoal()); // случайное число присваиваем в голы
+    }
+    protected void awayTeam(Team one, Team two){
+        one.setPointGoal(one.random()); // случайное число
+        two.setPointGoal(two.random()); // случайное число
+        one.setAllGoal(one.getAllGoal() + one.getPointGoal()); // случайное число присваиваем в голы
+        two.setAllGoal(two.getAllGoal() + two.getPointGoal()); // случайное число присваиваем в голы
 
-         if (one.getPointGoal() > two.getPointGoal()){ // если победила первая команда
-             one.setWinner(one.getWinner() + 1);
-             two.setLose(two.getLose() + 1);
-         } else if (two.getPointGoal() > one.getPointGoal()) { // если победила вторя команда
-             two.setWinner(two.getWinner() + 1);
-             one.setLose(one.getLose() + 1);
-         } else {                              // если ничья
-             one.setTie(one.getTie() + 1);
-             two.setTie(two.getTie() + 1);
-         }
-     }
+        if (one.getPointGoal() > two.getPointGoal()){ // если победила первая команда
+            one.setWinner(one.getWinner() + 1);
+            two.setLose(two.getLose() + 1);
+        } else if (two.getPointGoal() > one.getPointGoal()) { // если победила вторя команда
+            two.setWinner(two.getWinner() + 1);
+            one.setLose(one.getLose() + 1);
+        } else {                              // если ничья
+            one.setTie(one.getTie() + 1);
+            two.setTie(two.getTie() + 1);
+        }
+    }
 
     protected Game startGame(int nameGame, int temperature){
         this.setNameGame(nameGame);

@@ -15,13 +15,5 @@ public class Main {
 
         seson1.season();
 
-
-
-
-
-
-
-
-
     }
 }

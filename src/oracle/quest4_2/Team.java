@@ -1,10 +1,13 @@
-package oracle.quest4;
+package oracle.quest4_2;
 
 import java.util.Random;
 
 public class Team {
     private String name;
-    private int winner, lose, tie, pointGoal, allGoal;
+    private int winner;
+    private int lose;
+    private int tie;
+    private int allGoal;
     private Random random = new Random();
 
     public int random(){
@@ -25,14 +28,6 @@ public class Team {
 
     protected void setWinner(int winner) {
         this.winner = winner;
-    }
-
-    protected int getPointGoal() {
-        return pointGoal;
-    }
-
-    protected void setPointGoal(int pointGoal) {
-        this.pointGoal = pointGoal;
     }
 
     protected int getAllGoal() {
@@ -60,12 +55,12 @@ public class Team {
     }
 
     protected Team(String nameTeam){
-        this.name = nameTeam;
+        setName(nameTeam);
     }
 
     public void printTeam(){
-        System.out.printf("Team %s\nWins: %d, Losses: %d, Ties: %d\nPoints Scored: %d, Points Allowed: %d\n\n",
-                getName(), getWinner(), getLose(), getTie(), getPointGoal(), getAllGoal());
+        System.out.printf("Team %s\nWins: %d, Losses: %d, Ties: %d\n Points Allowed: %d\n\n",
+                     getName(), getWinner(), getLose(), getTie(), getAllGoal());
     }
 
 }
