@@ -3,7 +3,7 @@ package oracle.quest4;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
             Scheduler seson1 = new Scheduler();
 

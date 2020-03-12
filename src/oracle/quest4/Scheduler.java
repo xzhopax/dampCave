@@ -33,7 +33,7 @@ public class Scheduler {
     protected void season()  {
         while (numb != 3 || line.isEmpty()) {
 
-            try{
+            try {
                 System.out.printf("Введите температуру игры #%d:\n", Game.getNameMatch());
 
                 line = reader.readLine();
@@ -52,13 +52,7 @@ public class Scheduler {
                     System.out.println("Некорректный ввод, повторите попытку (вводите только цифры) :");
                 }
             } catch (IOException e){
-                System.out.println("Нееее, так дело не пойдет....");
-            } finally {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                System.out.println("Нееее, так дело не пойдет....Ошибока у тебя");
             }
         }
         if (numb == 3) { // если 3 раза подряд холодно (температура ниже 0)
@@ -83,6 +77,11 @@ public class Scheduler {
 
             System.out.printf("Hottest Temp: %d\n", Collections.max(resultTemp));
             System.out.printf("Average Temp: %.1f\n", (double)allTemp/resultTemp.size());
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
