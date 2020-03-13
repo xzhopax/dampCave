@@ -4,14 +4,21 @@ import java.util.Random;
 
 public class Team {
     private String name;
-    private int winner;
-    private int lose;
-    private int tie;
+    private int winner, lose, tie;
     private int allGoal;
     private Random random = new Random();
 
-    public int random(){
+    protected Team(String nameTeam){
+        setName(nameTeam);
+    }
+
+    protected int random(){
         return random.nextInt(5);
+    }
+
+    protected void printTeam(){
+        System.out.printf("Team %s\nWins: %d, Losses: %d, Ties: %d\nPoints Allowed: %d\n\n",
+                getName(), getWinner(), getLose(), getTie(), getAllGoal());
     }
 
     protected String getName() {
@@ -52,15 +59,6 @@ public class Team {
 
     protected void setTie(int tie) {
         this.tie = tie;
-    }
-
-    protected Team(String nameTeam){
-        setName(nameTeam);
-    }
-
-    public void printTeam(){
-        System.out.printf("Team %s\nWins: %d, Losses: %d, Ties: %d\nPoints Allowed: %d\n\n",
-                     getName(), getWinner(), getLose(), getTie(), getAllGoal());
     }
 
 }
