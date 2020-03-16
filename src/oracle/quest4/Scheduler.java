@@ -34,16 +34,16 @@ public class Scheduler {
         while (numb != 3 || line.isEmpty()) {
 
             try {
-                System.out.printf("Введите температуру игры #%d:\n", Game.getNameMatch());
+                System.out.printf("Введите температуру игры #%d: ", Game.getNameMatch());
 
                 line = reader.readLine();
 
-                if (line.matches("[-]\\d") ) { // если температура ниже 0
+                if (line.matches("[-]\\d+") ) { // если температура ниже 0
                     if(Integer.parseInt(line) < -50 || Integer.parseInt(line) > 50){
                         System.out.println("Вы ввели некорректную температуру\n");
                     } else numb++;
 
-                } else if (line.matches("\\d++") || line.matches("[+]\\d")) { // если целое положительное число
+                } else if (line.matches("\\d+") || line.matches("[+]\\d+")) { // если целое положительное число
                      season.add(new Game(Integer.parseInt(line)));
                      resultTemp.add(Integer.parseInt(line));
                     numb = 0;
@@ -52,7 +52,7 @@ public class Scheduler {
                     System.out.println("Некорректный ввод, повторите попытку (вводите только цифры) :");
                 }
             } catch (IOException e){
-                System.out.println("Нееее, так дело не пойдет....Ошибока у тебя");
+                e.printStackTrace();
             }
         }
         if (numb == 3) { // если 3 раза подряд холодно (температура ниже 0)
