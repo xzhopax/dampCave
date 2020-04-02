@@ -116,26 +116,42 @@ public class Main {
 
         // Буду использовать вместо Scanner --> BufferedReader
 
-//       FileReader inputReader = new FileReader("C:\\java\\1.txt");
-////      final String FILENAME = "C:\\java\\1.txt";
-////       String str = null;
+//        final String FILENAME = "src/oracle/JavaFX/learnJOptionPane/1.txt";
+//        BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
+//        String str;
+//
+//       while ((str = reader.readLine()) != null) {
+//           System.out.println(str);
+//       }
+//       reader.close();
 
-        String connect = new File("").getAbsolutePath();
-        connect = connect.concat("/1.txt");
-      // InputStream inputStream = Main.class.getResourceAsStream();
-       String str = null;
-        FileReader fr = new FileReader(connect);
-       BufferedReader reader = new BufferedReader(fr);
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // <<<<<<<<<<<<<<<<<<<<<<<< Урок 4 - 1 >>>>>>>>>>>>>>>>>>>>>>>>>
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-       while ((str = reader.readLine()) != null) {
-           System.out.println(str);
-       }
+//        final String FILENAME = "src/oracle/JavaFX/learnJOptionPane/1.txt"; // сохраняю путь файла
+//        BufferedReader reader = new BufferedReader(new FileReader(FILENAME)); // считываем  файл
+//        String line, str;
+//        String[] arr = new String[2];
+//        int xPositon, yPositon;
+//
+//        while ((line = reader.readLine()) != null) { // выводим строки в консоль
+//            System.out.println(line);
+//            if (line.contains("BlueBumper")) { // если найдет BlueBumper
+//                str = line.substring(line.indexOf("BlueBumper") + 11);
+//                arr = str.split("\\s");
+//            }
+//        }
+//        xPositon = Integer.parseInt(arr[0]);
+//        yPositon = Integer.parseInt(arr[1]);
+//
+//        System.out.println("----------------------");
+//        System.out.printf("\txPositon: %d\n", xPositon);
+//        System.out.printf("\tyPositon: %d\n", yPositon);
+//        System.out.println("----------------------");
 
 
-
-
-
-     }
+    }
    }
 
 
