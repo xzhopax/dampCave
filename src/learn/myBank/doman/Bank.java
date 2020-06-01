@@ -2,15 +2,13 @@ package learn.myBank.doman;
 
 public class Bank {
 
-    private Customer[] customers;
-    private int numOfClients;
+    private static Customer[] customers = new Customer[1000];
+    private static int numOfClients = 0;
 
-    public Bank(){
-        customers = new Customer[1000];
-        numOfClients = 0;
+    private Bank(){
     }
 
-    public Customer getCustomer(int cusNo){
+    public static Customer getCustomer(int cusNo){
         if (cusNo < customers.length){
             return customers[cusNo];
         }
@@ -18,9 +16,13 @@ public class Bank {
 
     }
 
-    public void addCostumer(Customer newCostumer){
+    public static void addCostumer(Customer newCostumer){
         customers[numOfClients]= newCostumer;
         numOfClients++;
 
+    }
+
+    public static int getNumOfClients() {
+        return numOfClients;
     }
 }

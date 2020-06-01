@@ -6,8 +6,6 @@ import learn.myBank.doman.*;
 public class TestAccount {
     public static void main(String[] args) {
 
-        Bank myBank = new Bank();
-
         Customer firstCustomer = new Customer("John Doe");
         Customer secondCustomer = new Customer("Jean Doe");
 
@@ -19,16 +17,16 @@ public class TestAccount {
         firstCustomer.addAccount(johnSavings);
         firstCustomer.addAccount(johnAccount);
         secondCustomer.addAccount(jeanAccount);
-        myBank.addCostumer(firstCustomer);
-        myBank.addCostumer(secondCustomer);
+        Bank.addCostumer(firstCustomer);
+        Bank.addCostumer(secondCustomer);
 
-        System.out.println(myBank.getCustomer(0));
-        myBank.getCustomer(0).getAccount(0).deposit(2000);
-        myBank.getCustomer(0).getAccount(1).withdraw(5500);
-        ((SavingsAccount)myBank.getCustomer(0).getAccount(0)).addInterestRate();
+        System.out.println(Bank.getCustomer(0));
+        Bank.getCustomer(0).getAccount(0).deposit(2000);
+        Bank.getCustomer(0).getAccount(1).withdraw(5500);
+        ((SavingsAccount)Bank.getCustomer(0).getAccount(0)).addInterestRate();
 
-        System.out.println(myBank.getCustomer(0).getAccount(0).getBalance());
-        System.out.println(myBank.getCustomer(0).getAccount(1).getBalance());
+        System.out.println(Bank.getCustomer(0).getAccount(0).getBalance());
+        System.out.println(Bank.getCustomer(0).getAccount(1).getBalance());
 
 
 
