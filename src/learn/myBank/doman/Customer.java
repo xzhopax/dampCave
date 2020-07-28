@@ -30,10 +30,21 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        String str = "Customer{" +
                 "fullName='" + fullName + '\'' +
                 ", customerNumber=" + customerNumber +
                 ", numOfAccounts=" + numOfAccounts +
                 '}';
+        for (int i = 0; i < this.numOfAccounts; i++) {
+            Account acc = getAccount(i);
+            if (acc instanceof SavingsAccount){
+                str = str + "\n\t" + (i + 1) +" Savings account with interest %"+((SavingsAccount) acc).getInterestRate();
+            } else {
+                str = str + "\n\t" + (i + 1) +" Checking account with overdraft %"+((CheckingAccount) acc).getOverdraftAmount();
+            }
+            str = str + ", balance $" + acc.getBalance();
+        }
+        str = str + "\n";
+        return str;
     }
 }

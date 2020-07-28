@@ -21,4 +21,8 @@ public class CheckingAccount extends Account {
         }
         return false;
     }
+
+    public double getOverdraftAmount() {
+        return overdraftAmount;
+    }
 }

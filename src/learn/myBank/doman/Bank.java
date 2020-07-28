@@ -1,6 +1,6 @@
 package learn.myBank.doman;
 
-public class Bank {
+public class  Bank {
 
     private static Customer[] customers = new Customer[1000];
     private static int numOfClients = 0;
