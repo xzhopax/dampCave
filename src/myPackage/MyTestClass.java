@@ -5,26 +5,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MyTestClass {
-    public static int[] mergeArrays(int[] first, int[] second) {
-        List<Integer> list = new ArrayList<>(new HashSet<>());
-
-        for (int mas : first){ // add first in list
-            list.add(mas);
-        }
-
-        for (int mas : second){ // add second in list
-            list.add(mas);
-        }
-
-        Collections.sort(list); // sort list
-        list = list.stream().distinct().collect(Collectors.toList()); // delete double
-
-
-        int[] result = new int[list.size()]; // create array (result)
-        for (int i = 0; i < list.size(); i ++) { // copy list in result
-            result[i] = list.get(i);
-        }
-
-        return result;
+    public static String bmi(double weight, double height) {
+        double bmi = weight / (height * height);
+        if (bmi <= 18.5) {
+            return "Underweight";
+        } else if (bmi <= 25) {
+            return "Normal";
+        } else if (bmi <= 30){
+            return "Overweight";
+        }else return "Obese";
     }
 }
