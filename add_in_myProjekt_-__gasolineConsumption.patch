@@ -1,0 +1,237 @@
+Index: src/com/codewars/kyu7/simpleArrayProduct/README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/com/codewars/kyu7/simpleArrayProduct/README.md	(date 1596728944136)
++++ src/com/codewars/kyu7/simpleArrayProduct/README.md	(date 1596728944136)
+@@ -0,0 +1,12 @@
++#Simple array product
++
++In this Kata, you will be given 2 or more
++arrays of integers, both positive and negative. 
++Your task is to find the maximum product that can
++be formed by taking one element from each array.
++
++    Examples:
++    solve([[1, 2],[3, 4]]) = 8, given by 2 * 4
++    solve([[10,-15],[-1,-3]]) = 45, given by (-15) * (-3)
++    
++More examples in test cases. Good luck!
+\ No newline at end of file
+Index: src/com/codewars/kyu7/simpleArrayProduct/Solution.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/com/codewars/kyu7/simpleArrayProduct/Solution.java	(date 1596728944085)
++++ src/com/codewars/kyu7/simpleArrayProduct/Solution.java	(date 1596728944085)
+@@ -0,0 +1,23 @@
++package com.codewars.kyu7.simpleArrayProduct;
++
++public class Solution {
++    public static int solve(int[][] arr) {
++        int result = 1;
++        int max = 0;
++        int number;
++        int[] num = new int[arr.length];
++
++        for (int i = 0; i < arr.length; i++) {
++            for (int j = 0; j < arr[i].length; j++) {
++                for (int k = 1; k < arr[j].length; k++) {
++
++                }
++
++            }
++
++        }
++
++
++        return result;
++    }
++}
+Index: src/myPackage/MyTestClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/myPackage/MyTestClass.java	(revision 361f118199b00ae0aba1e7ffdb6f1f61865424c4)
++++ src/myPackage/MyTestClass.java	(date 1596728938393)
+@@ -1,18 +1,11 @@
+ package myPackage;
+ 
+ 
+-import java.util.*;
+-import java.util.stream.Collectors;
++
++
+ 
+ public class MyTestClass {
+-    public static String bmi(double weight, double height) {
+-        double bmi = weight / (height * height);
+-        if (bmi <= 18.5) {
+-            return "Underweight";
+-        } else if (bmi <= 25) {
+-            return "Normal";
+-        } else if (bmi <= 30){
+-            return "Overweight";
+-        }else return "Obese";
++    public static boolean divide(int weight) {
++        return weight > 2 && (weight - 2) % 2 == 0;
+     }
+ }
+Index: src/com/codewars/kyu7/simpleArrayProduct/Test.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/com/codewars/kyu7/simpleArrayProduct/Test.java	(date 1596728944168)
++++ src/com/codewars/kyu7/simpleArrayProduct/Test.java	(date 1596728944168)
+@@ -0,0 +1,7 @@
++package com.codewars.kyu7.simpleArrayProduct;
++
++public class Test {
++    public static void main(String[] args) {
++        System.out.println(Solution.solve(new int [][]{{-11,-6},{-20,-20},{18,-4},{-20, 1}}));
++    }
++}
+Index: src/myProjekt/gasolineConsumption/TestCar.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/myProjekt/gasolineConsumption/TestCar.java	(date 1596736236828)
++++ src/myProjekt/gasolineConsumption/TestCar.java	(date 1596736236828)
+@@ -0,0 +1,38 @@
++package myProjekt.gasolineConsumption;
++
++import java.io.BufferedReader;
++import java.io.IOException;
++import java.io.InputStreamReader;
++import java.util.Scanner;
++
++public class TestCar {
++
++    public static void main(String[] args) throws IOException {
++        Scanner scanner = new Scanner(System.in);
++        Car day1 = new Car();
++        System.out.print("Введите растояние: ");
++        double dist = scanner.nextDouble();
++
++        System.out.print("Введите загруженность дороги: ");
++        int traffic = scanner.nextInt();
++
++        System.out.print("Введите цену бензина за  1 литр: ");
++        double price = scanner.nextDouble();
++
++        day1.priceGAS(dist, traffic, price);
++
++        System.out.print("Введите скорость: ");
++        double speed = scanner.nextDouble();
++
++        System.out.print("Введите пройденный путь: ");
++        double distance = scanner.nextDouble();
++
++        System.out.print("Введите стоимость бенизана за 1 литр: ");
++        double price2 = scanner.nextDouble();
++
++        day1.highwayConsumption(speed, distance, price2);
++
++        scanner.close();
++    }
++
++}
+Index: src/myPackage/TestCode.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/myPackage/TestCode.java	(revision 361f118199b00ae0aba1e7ffdb6f1f61865424c4)
++++ src/myPackage/TestCode.java	(date 1596728939332)
+@@ -1,12 +1,14 @@
+ package myPackage;
+ 
+-import java.util.Arrays;
+-
+ public class TestCode {
+     public static void main(String[] args) {
+         MyTestClass m1 = new MyTestClass();
+-
+-
++        System.out.println(MyTestClass.divide(2));
++        System.out.println(MyTestClass.divide(5));
++        System.out.println(MyTestClass.divide(99));
++        System.out.println(MyTestClass.divide(10));
++        System.out.println(MyTestClass.divide(20));
++        System.out.println(MyTestClass.divide(3));
+ 
+ 
+ 
+Index: src/myProjekt/gasolineConsumption/Car.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/myProjekt/gasolineConsumption/Car.java	(date 1596735486277)
++++ src/myProjekt/gasolineConsumption/Car.java	(date 1596735486277)
+@@ -0,0 +1,60 @@
++package myProjekt.gasolineConsumption;
++
++
++
++public class Car {
++
++    // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
++    private final double[] trafficCongestion = new double[]{7.0,8.0,9.0,10.0,12.0,14.0,15.0,16.0,18.0,20.0};
++    private static final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
++
++    //priceGAS - высчитываем кол-во литров бензина и потраченных денег на пройденный путь (VW polo)
++    public void priceGAS (double dist, int traffic, double gasolinePrice) {
++        double trafCon = trafficCongestion[traffic - 1];
++        double gas = (trafCon/100) * dist;
++        double result = gas * gasolinePrice;
++
++        System.out.println("=============================================");
++        System.out.println("За пройденный путь в населенном пункте вы потратили:");
++        System.out.printf("Бензин : %.2f литров\n", gas);
++        System.out.printf("Денег: %.2f рублей\n", result);
++        System.out.println("=============================================\n");
++    }
++
++    // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
++    private static double sc(double speed) {
++        if (speed <= 10 && speed >= 0) {
++            return speedCongestion[0];
++        } else if (speed <= 20) {
++            return speedCongestion[1];
++        } else if (speed <= 30) {
++            return speedCongestion[2];
++        } else if (speed <= 40) {
++            return speedCongestion[3];
++        } else if (speed <= 60) {
++            return speedCongestion[4];
++        } else if (speed <= 80) {
++            return speedCongestion[5];
++        } else if (speed <= 100) {
++            return speedCongestion[6];
++        } else if (speed <= 120) {
++            return speedCongestion[7];
++        } else if (speed <= 150) {
++            return speedCongestion[8];
++        } else if (speed <= 200) {
++            return speedCongestion[9];
++        } return 0;
++    }
++
++    //highwayConsumption - высчитывает сколько потрачено литров бензина и денег на него двигаясь по трассе
++    public void highwayConsumption(double speed, double distance, double price) {
++       double gas = Car.sc(speed)/100 * distance;
++       double result = gas * price;
++
++        System.out.println("=============================================");
++        System.out.println("За пройденный путь по трассе вы потратили:");
++        System.out.printf("Бензин : %.2f литров\n", gas);
++        System.out.printf("Денег: %.2f рублей\n", result);
++        System.out.println("=============================================\n");
++    }
++}

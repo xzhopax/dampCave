@@ -2,16 +2,21 @@ package myProjekt.gasolineConsumption;
 
 
 
-public class Car {
+class Car {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
     private final double[] trafficCongestion = new double[]{7.0,8.0,9.0,10.0,12.0,14.0,15.0,16.0,18.0,20.0};
     private static final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
 
+
+
     //priceGAS - высчитываем кол-во литров бензина и потраченных денег на пройденный путь (VW polo)
-    public void priceGAS (double dist, int traffic, double gasolinePrice) {
+    protected void priceGAS (double dist, int traffic, double gasolinePrice, boolean conditionerOff) {
         double trafCon = trafficCongestion[traffic - 1];
-        double gas = (trafCon/100) * dist;
+        double gas;
+        if (conditionerOff) {
+            gas = ((trafCon + 0.5) / 100) * dist;
+        } else gas = (trafCon / 100) * dist;
         double result = gas * gasolinePrice;
 
         System.out.println("=============================================");
@@ -47,8 +52,11 @@ public class Car {
     }
 
     //highwayConsumption - высчитывает сколько потрачено литров бензина и денег на него двигаясь по трассе
-    public void highwayConsumption(double speed, double distance, double price) {
-       double gas = Car.sc(speed)/100 * distance;
+    protected void highwayConsumption(double speed, double distance, double price, boolean conditioner) {
+       double gas;
+       if (conditioner) {
+           gas = (Car.sc(speed) + 0.5) / 100 * distance;
+       } else gas = Car.sc(speed) / 100 * distance;
        double result = gas * price;
 
         System.out.println("=============================================");
@@ -57,4 +65,6 @@ public class Car {
         System.out.printf("Денег: %.2f рублей\n", result);
         System.out.println("=============================================\n");
     }
+
+
 }
