@@ -10,17 +10,16 @@ public class TestCar {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line = "";
-        String num ;
+        String line = "", con = "", num;
         double dist = 0, price = 0, distance = 0, price2 = 0;
         int traffic = 0, speed = 0;
         boolean conditioner = true;
-        boolean conditioner2 = true;
 
         Car day1 = new Car();
 
         while (line.equals("")) { //start initialization line (menu)
-            System.out.println("================МЕНЮ================");
+            System.out.println("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>");
+            System.out.println("<<<====<<<=====Volkswagen polo sedan====>>>====>>>");
             System.out.println("Нажми цыфру 1 для: Расчета затрат бензина в городе.");
             System.out.println("Нажми цыфру 2 для: Расчета затрат бензина на трассе.");
             System.out.println("Нажми цыфру 3 для: Выхода из программы.");
@@ -35,9 +34,10 @@ public class TestCar {
                         System.out.println("\nДля расчета затрат бензина в городе :");
 
                         while (dist == 0) { // start initialization dist
-                            System.out.print("Введите растояние в км (Пример 23.0): ");
+                            System.out.print("Введите растояние в км : ");
                             num = reader.readLine();
-                            if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0) {
+                            if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
+                                    || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 dist = Double.parseDouble(num);
 
                             } else {
@@ -58,27 +58,31 @@ public class TestCar {
                         } // end initialization traffic
 
                         while (price == 0) { // start initialization price
-                            System.out.print("Введите цену бензина за  1 литр (Пример 46.0) : ");
+                            System.out.print("Введите стоимость бенизана за 1 литр : ");
                             num = reader.readLine();
-                            if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0) {
+                            if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
+                                    || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 price = Double.parseDouble(num);
                             } else {
-                                System.out.println("Вы ввели неверное значение");
+                                System.out.println("Вы ввели неверное число");
                                 price = 0;
                             }
-                        } // end initialization price
+                        } // end initialization price;
 
-                        while (line.equals("")){
-                            System.out.println("Кондиционер включен или выключен? (ввести вкл или выкл) :");
-                            line = reader.readLine();
-                            if (line.matches("вкл")|| line.matches("выкл")) {
-                                conditioner = line.equals("вкл");
+                        while (con.equals("")){ // start initialization conditioner
+                            System.out.print("Кондиционер включен или выключен? (ввести on или off) :");
+                            con = reader.readLine();
+                            if (con.matches("on")|| con.matches("off")) {
+                                if (con.matches("on")){
+                                    conditioner = true;
+                                } else if (con.matches("off")) {
+                                    conditioner = false;
+                                }
                             }else {
                                 System.out.println("Вы ввели неправильное значение.");
-                                line = "";
+                                con = "";
                             }
-
-                        }
+                        } // end initialization conditioner
 
                         // записсываем введенные аргументы в метод и получаем результат:
                         day1.priceGAS(dist, traffic, price, conditioner);
@@ -90,10 +94,11 @@ public class TestCar {
                         System.out.println("\nДля расчета затрат бензина на трассе :");
 
                         while (speed == 0) { // start initialization speed
-                            System.out.print("Введите скорость в км/ч (Целое число) : ");
+                            System.out.print("Введите скорость в км/ч : ");
                             num = reader.readLine();
-                            if (num.matches("\\d+") && Integer.parseInt(num) >= 0
-                                    || num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0) {
+                            if (num.matches("\\d+") && Integer.parseInt(num) >= 0 && Integer.parseInt(num) < 201
+                                    || num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
+                                        && Double.parseDouble(num) < 201) {
                                 double d = Double.parseDouble(num); // переменная для конвертации double в int
                                 speed = (int) d;
                             } else {
@@ -111,7 +116,7 @@ public class TestCar {
                             } else System.out.println("Вы ввели неверное число");
                         } // end initialization distance
 
-                        while (price2 == 0) { // start initialization price2
+                        while (price2 == 0) { // start initialization price
                             System.out.print("Введите стоимость бенизана за 1 литр : ");
                             num = reader.readLine();
                             if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
@@ -121,23 +126,28 @@ public class TestCar {
                                 System.out.println("Вы ввели неверное число");
                                 price2 = 0;
                             }
-                        } // end initialization price2;
+                        } // end initialization price;
 
-                        while (line.equals("")){
-                            System.out.println("Кондиционер включен или выключен? (ввести вкл или выкл) :");
-                            line = reader.readLine();
-                            if (line.matches("вкл")|| line.matches("выкл")) {
-                                conditioner2 = line.equals("вкл");
+
+                        while (con.equals("")){ // start initialization conditioner
+                            System.out.print("Кондиционер включен или выключен? (ввести on или off) :");
+                            con = reader.readLine();
+                            if (con.matches("on")|| con.matches("off")) {
+                                if (con.matches("on")){
+                                    conditioner = true;
+                                } else if (con.matches("off")) {
+                                    conditioner = false;
+                                }
                             }else {
                                 System.out.println("Вы ввели неправильное значение.");
-                                line = "";
+                                con = "";
                             }
-
                         } // end initialization conditioner
 
-                        day1.highwayConsumption(speed, distance, price2, conditioner2);
+                        day1.highwayConsumption(speed, distance, price2, conditioner);
                         System.out.println("================Good Bay================");
                         break;
+
                     case 3: // выход из программы.
                         System.out.println("================Good Bay================");
                         break;
