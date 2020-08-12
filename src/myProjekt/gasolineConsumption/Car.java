@@ -11,13 +11,20 @@ class Car {
 
 
     //priceGAS - высчитываем кол-во литров бензина и потраченных денег на пройденный путь (VW polo)
-    protected void priceGAS (double dist, int traffic, double gasolinePrice, boolean conditionerOff) {
+    protected void priceGAS
+           (double dist, int traffic, double gasolinePrice, boolean conditioner, boolean dynamicDriving) {
         double trafCon = trafficCongestion[traffic - 1];
-        double gas;
-        if (conditionerOff) {
-            gas = ((trafCon + 0.5) / 100) * dist;
-        } else gas = (trafCon / 100) * dist;
-        double result = gas * gasolinePrice;
+        double gas = 0, result;
+
+        if (conditioner) {
+            gas += trafCon + 0.5 ;
+        } else gas += trafCon ;
+
+        if (dynamicDriving) {
+            gas += 2.0;
+        }
+        gas = (gas / 100) * dist;
+        result = gas * gasolinePrice;
 
         System.out.println("=============================================");
         System.out.println("За пройденный путь в населенном пункте вы потратили:");
@@ -52,12 +59,19 @@ class Car {
     }
 
     //highwayConsumption - высчитывает сколько потрачено литров бензина и денег на него двигаясь по трассе
-    protected void highwayConsumption(double speed, double distance, double price, boolean conditioner) {
-       double gas;
+    protected void highwayConsumption
+             (double speed, double distance, double price, boolean conditioner, boolean dynamicDriving) {
+       double gas = 0, result;
+
        if (conditioner) {
-           gas = (Car.sc(speed) + 0.5) / 100 * distance;
-       } else gas = Car.sc(speed) / 100 * distance;
-       double result = gas * price;
+           gas += Car.sc(speed) + 0.5;
+       } else gas += Car.sc(speed) ;
+
+        if (dynamicDriving) {
+            gas +=  + 2.0;
+        }
+        gas = (gas / 100) * distance;
+        result = gas * price;
 
         System.out.println("=============================================");
         System.out.println("За пройденный путь по трассе вы потратили:");

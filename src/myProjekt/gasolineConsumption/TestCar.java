@@ -10,10 +10,10 @@ public class TestCar {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line = "", con = "", num;
+        String line = "", con = "", dyn = "", num;
         double dist = 0, price = 0, distance = 0, price2 = 0;
         int traffic = 0, speed = 0;
-        boolean conditioner = true;
+        boolean conditioner1 = true, dynamicDriving1 = true, conditioner2 = true, dynamicDriving2 = true;
 
         Car day1 = new Car();
 
@@ -74,9 +74,9 @@ public class TestCar {
                             con = reader.readLine();
                             if (con.matches("on")|| con.matches("off")) {
                                 if (con.matches("on")){
-                                    conditioner = true;
+                                    conditioner1 = true;
                                 } else if (con.matches("off")) {
-                                    conditioner = false;
+                                    conditioner1 = false;
                                 }
                             }else {
                                 System.out.println("Вы ввели неправильное значение.");
@@ -84,8 +84,23 @@ public class TestCar {
                             }
                         } // end initialization conditioner
 
+                        while (dyn.equals("")){ // start initialization dynamicDriving
+                            System.out.print("Динамичная езда -> да или нет? (ввести yes или no) :");
+                            dyn = reader.readLine();
+                            if (dyn.matches("yes")|| dyn.matches("no")) {
+                                if (dyn.matches("yes")){
+                                    dynamicDriving1 = true;
+                                } else if (dyn.matches("no")) {
+                                    dynamicDriving1 = false;
+                                }
+                            }else {
+                                System.out.println("Вы ввели неправильное значение.");
+                                dyn = "";
+                            }
+                        } // end initialization dynamicDriving
+
                         // записсываем введенные аргументы в метод и получаем результат:
-                        day1.priceGAS(dist, traffic, price, conditioner);
+                        day1.priceGAS(dist, traffic, price, conditioner1, dynamicDriving1);
                         System.out.println("================Good Bay================");
 
                         break;
@@ -134,9 +149,9 @@ public class TestCar {
                             con = reader.readLine();
                             if (con.matches("on")|| con.matches("off")) {
                                 if (con.matches("on")){
-                                    conditioner = true;
+                                    conditioner2 = true;
                                 } else if (con.matches("off")) {
-                                    conditioner = false;
+                                    conditioner2 = false;
                                 }
                             }else {
                                 System.out.println("Вы ввели неправильное значение.");
@@ -144,7 +159,22 @@ public class TestCar {
                             }
                         } // end initialization conditioner
 
-                        day1.highwayConsumption(speed, distance, price2, conditioner);
+                        while (dyn.equals("")){ // start initialization dynamicDriving1
+                            System.out.print("Динамичная езда -> да или нет? (ввести yes или no) :");
+                            dyn = reader.readLine();
+                            if (dyn.matches("yes")|| dyn.matches("no")) {
+                                if (dyn.matches("yes")){
+                                    dynamicDriving2 = true;
+                                } else if (dyn.matches("no")) {
+                                    dynamicDriving2 = false;
+                                }
+                            }else {
+                                System.out.println("Вы ввели неправильное значение.");
+                                dyn = "";
+                            }
+                        } // end initialization dynamicDriving2
+
+                        day1.highwayConsumption(speed, distance, price2, conditioner2, dynamicDriving2);
                         System.out.println("================Good Bay================");
                         break;
 
@@ -157,7 +187,7 @@ public class TestCar {
             } else {
                 System.out.println("Вы ввели неверное число\n");
                 line = "";
-            } // если line не содержит целое число
+            } // если line не содержит число
         }//end initialization line (menu)
         reader.close();
 
