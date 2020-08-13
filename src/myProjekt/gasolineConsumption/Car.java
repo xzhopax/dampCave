@@ -1,12 +1,16 @@
 package myProjekt.gasolineConsumption;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 class Car {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
     private final double[] trafficCongestion = new double[]{7.0,8.0,9.0,10.0,12.0,14.0,15.0,16.0,18.0,20.0};
     private static final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
+    private Info info;
+    private  double speed;
 
 
 
@@ -81,4 +85,25 @@ class Car {
     }
 
 
-}
+    protected boolean ifFlag(String incomingStream) {
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("on",true);
+        map.put("off",false);
+        map.put("yes",true);
+        map.put("no",false);
+
+        switch (incomingStream){
+            case "on" :
+                return map.get("on");
+            case "off" :
+                return map.get("off");
+            case "yes" :
+                return map.get("yes");
+            case "no" :
+                return map.get("no");
+        }
+            return false;
+        }
+
+
+    }

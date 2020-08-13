@@ -10,184 +10,223 @@ public class TestCar {
     public static void main(String[] args) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line = "", con = "", dyn = "", num;
+        String line = "", con = "", dyn = "", menu = "",  num;
         double dist = 0, price = 0, distance = 0, price2 = 0;
         int traffic = 0, speed = 0;
         boolean conditioner1 = true, dynamicDriving1 = true, conditioner2 = true, dynamicDriving2 = true;
 
-        Car day1 = new Car();
+        Car car = new Car();
+        Info info = new Info();
 
-        while (line.equals("")) { //start initialization line (menu)
-            System.out.println("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>");
-            System.out.println("<<<====<<<=====Volkswagen polo sedan====>>>====>>>");
-            System.out.println("Нажми цыфру 1 для: Расчета затрат бензина в городе.");
-            System.out.println("Нажми цыфру 2 для: Расчета затрат бензина на трассе.");
-            System.out.println("Нажми цыфру 3 для: Выхода из программы.");
-            System.out.print("Введите значение : ");
+        while (!line.matches("3")) { //start initialization line (menu)
+            info.menu();
             line = reader.readLine();
-            // проверка на целое число от 1 до 3, если число верное, то переходит в соответствующий кейс
+            // checking for an integer from 1 to 3, if the number is correct, then it goes to the corresponding case
             if (line.matches("\\d") && Integer.parseInt(line) > 0 && Integer.parseInt(line) < 4) {
 
-                switch (Integer.parseInt(line)) {
-                    //
-                    case 1: //Расчет затрат бензина в городе
-                        System.out.println("\nДля расчета затрат бензина в городе :");
+                switch (Integer.parseInt(line)) { // start main switch
+
+                    case 1: //Calculating the cost of gasoline in the city
+                        info.spendingInTheCity();
 
                         while (dist == 0) { // start initialization dist
-                            System.out.print("Введите растояние в км : ");
+                            info.inDistanceTraveled();
                             num = reader.readLine();
+
                             if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
                                     || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 dist = Double.parseDouble(num);
-
                             } else {
-                                System.out.println("Вы ввели неверное значение");
+                                info.error();
                                 dist = 0;
                             }
                         } // end initialization dist
 
                         while (traffic == 0) { // start traffic
-                            System.out.print("Введите загруженность дороги от 1 до 10: ");
+                            info.inTrafficRoad();
                             num = reader.readLine();
+
                             if (num.matches("\\d") && Integer.parseInt(num) > 0 && Integer.parseInt(num) < 11) {
                                 traffic = Integer.parseInt(num);
                             } else {
-                                System.out.println("Вы ввели неверное значение");
+                                info.error();
                                 traffic = 0;
                             }
                         } // end initialization traffic
 
                         while (price == 0) { // start initialization price
-                            System.out.print("Введите стоимость бенизана за 1 литр : ");
+                            info.inPriceGas();
                             num = reader.readLine();
+
                             if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
                                     || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 price = Double.parseDouble(num);
                             } else {
-                                System.out.println("Вы ввели неверное число");
+                                info.error();
                                 price = 0;
                             }
                         } // end initialization price;
 
                         while (con.equals("")){ // start initialization conditioner
-                            System.out.print("Кондиционер включен или выключен? (ввести on или off) :");
+                            info.conditionerPosition();
                             con = reader.readLine();
+
                             if (con.matches("on")|| con.matches("off")) {
-                                if (con.matches("on")){
-                                    conditioner1 = true;
-                                } else if (con.matches("off")) {
-                                    conditioner1 = false;
-                                }
+                                conditioner1 = car.ifFlag(con);
                             }else {
-                                System.out.println("Вы ввели неправильное значение.");
+                                info.error();
                                 con = "";
                             }
                         } // end initialization conditioner
 
                         while (dyn.equals("")){ // start initialization dynamicDriving
-                            System.out.print("Динамичная езда -> да или нет? (ввести yes или no) :");
+                            info.dynamicDrive();
                             dyn = reader.readLine();
+
                             if (dyn.matches("yes")|| dyn.matches("no")) {
-                                if (dyn.matches("yes")){
-                                    dynamicDriving1 = true;
-                                } else if (dyn.matches("no")) {
-                                    dynamicDriving1 = false;
-                                }
+                                dynamicDriving1 = car.ifFlag(dyn);
                             }else {
-                                System.out.println("Вы ввели неправильное значение.");
+                                info.error();
                                 dyn = "";
                             }
                         } // end initialization dynamicDriving
 
-                        // записсываем введенные аргументы в метод и получаем результат:
-                        day1.priceGAS(dist, traffic, price, conditioner1, dynamicDriving1);
-                        System.out.println("================Good Bay================");
 
-                        break;
-                    // end case 1
-                    case 2: //Расчет затрат бензина на трассе
-                        System.out.println("\nДля расчета затрат бензина на трассе :");
+                        // write the entered arguments into the method and get the result:
+                        car.priceGAS(dist, traffic, price, conditioner1, dynamicDriving1);
+
+                        while (menu.equals("")){ // start initialization menu
+                            info.returnMenu();
+                            menu = reader.readLine();
+
+                            if (menu.matches("yes") || menu.matches("no")) {
+                                // if "yes" -> reset fields and return menu
+                                // if "no" -> exit program
+                                if (menu.matches("yes")) {
+                                    System.out.println();
+                                    dist = 0;
+                                    traffic = 0;
+                                    price = 0;
+                                    menu = "";
+                                    dyn = "";
+                                    con = "";
+                                    break;
+                                } else {
+                                    info.goodBay();
+                                    line = "3";
+                                }
+                            } else {
+                                info.error();
+                            }
+                        } // end initialization menu
+                        break; // end case 1
+
+
+                    case 2: //Calculating the cost of gasoline on the highway
+                        info.spendingOnTheHighway();
 
                         while (speed == 0) { // start initialization speed
-                            System.out.print("Введите скорость в км/ч : ");
+                            info.inSpeed();
                             num = reader.readLine();
+
                             if (num.matches("\\d+") && Integer.parseInt(num) >= 0 && Integer.parseInt(num) < 201
                                     || num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
                                         && Double.parseDouble(num) < 201) {
-                                double d = Double.parseDouble(num); // переменная для конвертации double в int
+                                double d = Double.parseDouble(num); // variable to convert double to int
                                 speed = (int) d;
                             } else {
-                                System.out.println("Вы ввели неверное значение");
+                                info.error();
                                 speed = 0;
                             }
                         } // end initialization speed
 
                         while (distance == 0) { // start initialization distance
-                            System.out.print("Введите пройденный путь в км : ");
+                            info.inDistanceTraveled();
                             num = reader.readLine();
+
                             if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
                                     || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 distance = Double.parseDouble(num);
-                            } else System.out.println("Вы ввели неверное число");
+                            } else info.error();
                         } // end initialization distance
 
                         while (price2 == 0) { // start initialization price
-                            System.out.print("Введите стоимость бенизана за 1 литр : ");
+                            info.inPriceGas();
                             num = reader.readLine();
+
                             if (num.matches("(\\d+(\\.\\d+))") && Double.parseDouble(num) > 0
                                     || num.matches("\\d+") && Integer.parseInt(num) > 0) {
                                 price2 = Double.parseDouble(num);
                             } else {
-                                System.out.println("Вы ввели неверное число");
+                                info.error();
                                 price2 = 0;
                             }
                         } // end initialization price;
 
 
                         while (con.equals("")){ // start initialization conditioner
-                            System.out.print("Кондиционер включен или выключен? (ввести on или off) :");
+                            info.conditionerPosition();
                             con = reader.readLine();
+
                             if (con.matches("on")|| con.matches("off")) {
-                                if (con.matches("on")){
-                                    conditioner2 = true;
-                                } else if (con.matches("off")) {
-                                    conditioner2 = false;
-                                }
+                                conditioner2 = car.ifFlag(con);
                             }else {
-                                System.out.println("Вы ввели неправильное значение.");
+                                info.error();
                                 con = "";
                             }
                         } // end initialization conditioner
 
+
                         while (dyn.equals("")){ // start initialization dynamicDriving1
-                            System.out.print("Динамичная езда -> да или нет? (ввести yes или no) :");
+                            info.dynamicDrive();
                             dyn = reader.readLine();
+
                             if (dyn.matches("yes")|| dyn.matches("no")) {
-                                if (dyn.matches("yes")){
-                                    dynamicDriving2 = true;
-                                } else if (dyn.matches("no")) {
-                                    dynamicDriving2 = false;
-                                }
+                               dynamicDriving2 = car.ifFlag(dyn);
                             }else {
-                                System.out.println("Вы ввели неправильное значение.");
+                                info.error();
                                 dyn = "";
                             }
                         } // end initialization dynamicDriving2
 
-                        day1.highwayConsumption(speed, distance, price2, conditioner2, dynamicDriving2);
-                        System.out.println("================Good Bay================");
+                        // write the entered arguments into the method and get the result:
+                        car.highwayConsumption(speed, distance, price2, conditioner2, dynamicDriving2);
+
+                        while (menu.equals("")){ // start initialization menu
+                            info.returnMenu();
+                            menu = reader.readLine();
+
+                            if (menu.matches("yes") || menu.matches("no")) {
+                                // if "yes" -> reset fields and return menu
+                                // if "no" -> exit program
+                                if (menu.matches("yes")) {
+                                    System.out.println();
+                                    speed = 0;
+                                    distance = 0;
+                                    price2 = 0;
+                                    menu = "";
+                                    dyn = "";
+                                    con = "";
+                                    break;
+                                } else {
+                                    info.goodBay();
+                                    line = "3";
+                                }
+                            } else {
+                                info.error();
+                            }
+                        } // end initialization menu
                         break;
 
-                    case 3: // выход из программы.
-                        System.out.println("================Good Bay================");
+                    case 3: // exit the program.
+                        info.goodBay();
                         break;
+                } // end main switch
 
-                } // end switch
-
-            } else {
-                System.out.println("Вы ввели неверное число\n");
+            } else { // if the line (in main switches) does not contain the desired number
+                info.error();
                 line = "";
-            } // если line не содержит число
+            }
         }//end initialization line (menu)
         reader.close();
 
