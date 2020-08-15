@@ -2,7 +2,6 @@ package myProjekt.gasolineConsumption;
 
 public class Info {
 
-
     protected void menu() {
         System.out.println("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>");
         System.out.println("<<<====<<<=====Volkswagen polo sedan====>>>====>>>");
@@ -51,7 +50,12 @@ public class Info {
     protected void spendingInTheCity(){
         System.out.println("\nДля расчета затрат бензина в городе :");
     }
+
     protected void spendingOnTheHighway() {
         System.out.println("\nДля расчета затрат бензина на трассе :");
+    }
+
+    protected void enteredDate(){
+        System.out.print("Введите дату (пример: 25.11.2011) :");
     }
 }

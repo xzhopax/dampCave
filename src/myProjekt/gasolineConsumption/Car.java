@@ -1,26 +1,32 @@
 package myProjekt.gasolineConsumption;
 
-
-import java.util.HashMap;
-import java.util.Map;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 class Car {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
     private final double[] trafficCongestion = new double[]{7.0,8.0,9.0,10.0,12.0,14.0,15.0,16.0,18.0,20.0};
-    private static final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
-    private Info info = new Info();
-    private  double speed = 0;
-    private  String line = "";
-    private  String con = "";
-    private  String dyn = "";
-    private  String menu = "";
-    private  String num;
-    private  double dist = 0, price = 0, distance = 0, price2 = 0;
+    private final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
+    private static List<Car> result = new ArrayList<>();
+    private Calendar calendar = Calendar.getInstance();
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
+
+    private final Info info = new Info();
+    private  String line = "", con = "", dyn = "", menu = "",date = "", num;
+    private  double price = 0, distance = 0,speed = 0;
     private  int traffic = 0;
-    private  boolean conditioner = true, dynamicDriving = true, conditioner2 = true, dynamicDriving2 = true;
+    private  boolean conditioner = true, dynamicDriving = true;
 
-
+    Car() throws IOException {
+    }
 
     //priceGAS - высчитываем кол-во литров бензина и потраченных денег на пройденный путь (VW polo)
     protected void priceGAS
@@ -39,6 +45,7 @@ class Car {
         result = gas * gasolinePrice;
 
         System.out.println("=============================================");
+        System.out.printf("%s\n",getDate());
         System.out.println("За пройденный путь в населенном пункте вы потратили:");
         System.out.printf("Бензин : %.2f литров\n", gas);
         System.out.printf("Денег: %.2f рублей\n", result);
@@ -46,7 +53,7 @@ class Car {
     }
 
     // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
-    private static double sc(double speed) {
+    private double sc(double speed) {
         if (speed <= 10 && speed >= 0) {
             return speedCongestion[0];
         } else if (speed <= 20) {
@@ -76,8 +83,8 @@ class Car {
        double gas = 0, result;
 
        if (conditioner) {
-           gas += Car.sc(speed) + 0.5;
-       } else gas += Car.sc(speed) ;
+           gas += sc(speed) + 0.5;
+       } else gas += sc(speed) ;
 
         if (dynamicDriving) {
             gas +=  + 2.0;
@@ -86,25 +93,12 @@ class Car {
         result = gas * price;
 
         System.out.println("=============================================");
+        System.out.printf("%s\n",getDate());
         System.out.println("За пройденный путь по трассе вы потратили:");
         System.out.printf("Бензин : %.2f литров\n", gas);
         System.out.printf("Денег: %.2f рублей\n", result);
         System.out.println("=============================================\n");
     }
-
-
-//    protected boolean ifFlag(String incomingStream) {
-//
-//        switch (incomingStream){
-//            case "on" :
-//            case "yes" :
-//                return true;
-//            case "off" :
-//            case "no" :
-//                return false;
-//        }
-//            return false;
-//        }
 
     protected void ifConditioner(String incomingStream) {
         setCon(incomingStream);
@@ -146,11 +140,10 @@ class Car {
                 setSpeed(0);
                 setTraffic(0);
                 setPrice(0);
-                setMenu("");
                 setDyn("");
                 setCon("");
                 setLine("");
-
+                setDate(null);
             } else {
                 getInfo().goodBay();
                 setLine("3");
@@ -207,22 +200,72 @@ class Car {
         }
     }
 
+    protected void resetMenu(){
+        setMenu("");
+    }
 
-
-
-
-
-    protected void resetValues(){
+    protected void addResult(Car needSave) {
 
     }
 
+    protected void cleanResult() {
+        getResult().clear();
+    }
+
+    protected void removeResult(int num){
+        getResult().remove(num);
+    }
+
+    protected void todayDate(String date)  {
+        isDateValid(date);
+
+        if (isDateValid(date)){
+            setDate(date);
+        } else {
+            getInfo().error();
+            setDate("");
+        }
+    }
+
+    protected static boolean isDateValid(String date)
+    {
+        try {
+            DateFormat df = new SimpleDateFormat("d.M.yyyy");
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "trafficCongestion=" + Arrays.toString(trafficCongestion) +
+                ", speedCongestion=" + Arrays.toString(speedCongestion) +
+                ", calendar=" + calendar +
+                ", simpleDateFormat=" + simpleDateFormat +
+                ", info=" + info +
+                ", line='" + line + '\'' +
+                ", con='" + con + '\'' +
+                ", dyn='" + dyn + '\'' +
+                ", menu='" + menu + '\'' +
+                ", date='" + date + '\'' +
+                ", num='" + num + '\'' +
+                ", price=" + price +
+                ", distance=" + distance +
+                ", speed=" + speed +
+                ", traffic=" + traffic +
+                ", conditioner=" + conditioner +
+                ", dynamicDriving=" + dynamicDriving +
+                '}';
+    }
+
+    //down get and set
 
     protected Info getInfo() {
         return info;
-    }
-
-    protected void setInfo(Info info) {
-        this.info = info;
     }
 
     protected double getSpeed() {
@@ -273,14 +316,6 @@ class Car {
         this.num = num;
     }
 
-    protected double getDist() {
-        return dist;
-    }
-
-    protected void setDist(double dist) {
-        this.dist = dist;
-    }
-
     protected double getPrice() {
         return price;
     }
@@ -295,14 +330,6 @@ class Car {
 
     protected void setDistance(double distance) {
         this.distance = distance;
-    }
-
-    protected double getPrice2() {
-        return price2;
-    }
-
-    protected void setPrice2(double price2) {
-        this.price2 = price2;
     }
 
     protected int getTraffic() {
@@ -329,19 +356,15 @@ class Car {
         this.dynamicDriving = dynamicDriving;
     }
 
-    protected boolean isConditioner2() {
-        return conditioner2;
+    protected static List<Car> getResult() {
+        return result;
     }
 
-    protected void setConditioner2(boolean conditioner2) {
-        this.conditioner2 = conditioner2;
+    protected String getDate() {
+        return date;
     }
 
-    protected boolean isDynamicDriving2() {
-        return dynamicDriving2;
-    }
-
-    protected void setDynamicDriving2(boolean dynamicDriving2) {
-        this.dynamicDriving2 = dynamicDriving2;
+    protected void setDate(String date) {
+        this.date = date;
     }
 }
