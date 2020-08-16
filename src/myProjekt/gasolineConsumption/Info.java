@@ -5,21 +5,12 @@ import java.io.IOException;
 public class Info {
     private StringBuilder sbMenu = new StringBuilder();
 
-    private String sMenu = "<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>\n" +
-            "<<<====<<<=====Volkswagen polo sedan====>>>====>>>\n" +
-            "Нажми цыфру 1 для: Расчета затрат бензина в городе.\n" +
-            "Нажми цыфру 2 для: Расчета затрат бензина на трассе.\n" +
-            "Нажми цыфру 3 для: Вывода истории на экран.\n" +
-            "Нажми цыфру 4 для: очистки истории.\n" +
-            "Нажми цыфру 5 для: Выхода из программы.\n" +
-            "Введите значение : ";
-
-
 
     public Info() throws IOException {
     }
-    private void creatMenu(){
-        sbMenu.append("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>\n");
+
+    protected void menu() {
+        sbMenu.append("\n<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>\n");
         sbMenu.append("<<<====<<<=====Volkswagen polo sedan====>>>====>>>\n");
         sbMenu.append("Нажми цыфру 1 для: Расчета затрат бензина в городе.\n");
         sbMenu.append("Нажми цыфру 2 для: Расчета затрат бензина на трассе.\n");
@@ -28,11 +19,8 @@ public class Info {
         sbMenu.append("Нажми цыфру 5 для: Выхода из программы.\n");
         sbMenu.append("Введите значение : ");
         System.out.print(sbMenu.toString());
-    }
+        sbMenu.setLength(0);
 
-
-    protected void menu() {
-        System.out.print(sMenu);
 
     }
 

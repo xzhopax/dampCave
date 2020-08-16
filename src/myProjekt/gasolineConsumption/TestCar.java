@@ -1,8 +1,6 @@
 package myProjekt.gasolineConsumption;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class TestCar {
@@ -142,11 +140,13 @@ public class TestCar {
                         break;
 
                     case 3:
-                        car.outDisplayResult();
+                        car.outDisplayReport();
+                        car.reportTheTotal();
                         break;
 
                     case 4:
                         car.cleanResult();
+
                         break;
 
                     case 5: // exit the program.

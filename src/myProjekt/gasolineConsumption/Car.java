@@ -12,7 +12,9 @@ class Car {
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
     private final double[] trafficCongestion = new double[]{7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 15.0, 16.0, 18.0, 20.0};
     private final double[] speedCongestion = new double[]{9.5, 6.0, 4.8, 4.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.5};
-    private static List<String> result = new ArrayList<>();
+    private static double allGas;
+    private static double allMoney;
+
     private Calendar calendar = Calendar.getInstance();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
     private StringBuilder sb = new StringBuilder();
@@ -41,10 +43,16 @@ class Car {
         }
         setGas((getGas() / 100) * dist);
         setResultGas(getGas() * gasolinePrice);
+        countTheTotal(getGas(),getResultGas());
         reportCity();
         setGas(0);
         setResultGas(0);
         resetMenu();
+    }
+
+    private void countTheTotal(double gas, double money){
+        setAllMoney(getAllMoney() + money);
+        setAllGas(getAllGas() + gas);
     }
 
     // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
@@ -86,6 +94,7 @@ class Car {
         }
         setGas((getGas() / 100) * distance);
         setResultGas(getGas() * price);
+        countTheTotal(getGas(),getResultGas());
         reportHighway();
         setGas(0);
         setResultGas(0);
@@ -196,11 +205,7 @@ class Car {
         setMenu("");
     }
 
-    protected void addResult(String needSave) {
-        getResult().add(needSave);
-    }
-
-    protected void outDisplayResult() throws IOException {
+    protected void outDisplayReport() throws IOException {
         StringBuilder sb = new StringBuilder();
         try(Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")){
             int data = reader.read();
@@ -225,16 +230,14 @@ class Car {
     }
 
     protected void cleanResult() {
+        setAllMoney(0);
+        setAllGas(0);
         try(Writer reportFile = new FileWriter
                 ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",false)){
             reportFile.write("");
         }catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    protected void removeResult(int num) {
-        getResult().remove(num);
     }
 
     protected void todayDate(String date) {
@@ -265,7 +268,7 @@ class Car {
         sb.append("За пройденный путь в населенном пункте вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
         sb.append(String.format("Денег: %.2f рублей\n", getResultGas()));
-        sb.append("=============================================\n\n");
+        sb.append("=============================================\n");
         saveReport(sb.toString());
         System.out.println(sb.toString());
         sb.setLength(0);
@@ -277,8 +280,15 @@ class Car {
         sb.append("За пройденный путь по трассе вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
         sb.append(String.format("Денег: %.2f рублей\n", getResultGas()));
-        sb.append("=============================================\n\n");
+        sb.append("=============================================\n");
         saveReport(sb.toString());
+        System.out.println(sb.toString());
+        sb.setLength(0);
+    }
+
+    protected void reportTheTotal(){
+        sb.append(String.format("Общая сумма денег была потрачена на бензин : %.2f\n", getAllMoney()));
+        sb.append(String.format("Общее количество бензина израсходавано : %.2f", getAllGas()));
         System.out.println(sb.toString());
         sb.setLength(0);
     }
@@ -401,10 +411,6 @@ class Car {
         this.dynamicDriving = dynamicDriving;
     }
 
-    protected static List<String> getResult() {
-        return result;
-    }
-
     protected String getDate() {
         return date;
     }
@@ -427,5 +433,21 @@ class Car {
 
     protected void setResultGas(double resultGas) {
         this.resultGas = resultGas;
+    }
+
+    protected static double getAllGas() {
+        return allGas;
+    }
+
+    protected static void setAllGas(double allGas) {
+        Car.allGas = allGas;
+    }
+
+    protected static double getAllMoney() {
+        return allMoney;
+    }
+
+    protected static void setAllMoney(double allMoney) {
+        Car.allMoney = allMoney;
     }
 }
