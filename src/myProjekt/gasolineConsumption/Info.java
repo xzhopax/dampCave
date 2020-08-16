@@ -1,14 +1,25 @@
 package myProjekt.gasolineConsumption;
 
+import java.io.IOException;
+
 public class Info {
+    StringBuilder sbInfo = new StringBuilder();
+
+
+    public Info() throws IOException {
+    }
 
     protected void menu() {
-        System.out.println("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>");
-        System.out.println("<<<====<<<=====Volkswagen polo sedan====>>>====>>>");
-        System.out.println("Нажми цыфру 1 для: Расчета затрат бензина в городе.");
-        System.out.println("Нажми цыфру 2 для: Расчета затрат бензина на трассе.");
-        System.out.println("Нажми цыфру 3 для: Выхода из программы.");
-        System.out.print("Введите значение : ");
+        sbInfo.append("<<<===<<<===<<<========МЕНЮ========>>>===>>>===>>>\n");
+        sbInfo.append("<<<====<<<=====Volkswagen polo sedan====>>>====>>>\n");
+        sbInfo.append("Нажми цыфру 1 для: Расчета затрат бензина в городе.\n");
+        sbInfo.append("Нажми цыфру 2 для: Расчета затрат бензина на трассе.\n");
+        sbInfo.append("Нажми цыфру 3 для: Вывода истории на экран.\n");
+        sbInfo.append("Нажми цыфру 4 для: очистки истории.\n");
+        sbInfo.append("Нажми цыфру 5 для: Выхода из программы.\n");
+        sbInfo.append("Введите значение : ");
+        System.out.println(sbInfo.toString());
+
     }
 
     protected void error() {
@@ -58,4 +69,13 @@ public class Info {
     protected void enteredDate(){
         System.out.print("Введите дату (пример: 25.11.2011) :");
     }
+
+//    protected void reportCity() {
+//        sb.append("=============================================");
+//        sb.append(car.getDate()).append("\n");
+//        sb.append("За пройденный путь в населенном пункте вы потратили:");
+//        sb.append(String.format("Бензин : %.2f литров\n", car.getDate()));
+//
+//
+//    }
 }
