@@ -1,9 +1,6 @@
 package myProjekt.gasolineConsumption;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,18 +10,18 @@ import java.util.*;
 class Car {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
-    private final double[] trafficCongestion = new double[]{7.0,8.0,9.0,10.0,12.0,14.0,15.0,16.0,18.0,20.0};
-    private final double[] speedCongestion = new double[]{9.5,6.0,4.8,4.0,3.5,4.0,5.0,6.0,8.0,10.5};
+    private final double[] trafficCongestion = new double[]{7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 15.0, 16.0, 18.0, 20.0};
+    private final double[] speedCongestion = new double[]{9.5, 6.0, 4.8, 4.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.5};
     private static List<String> result = new ArrayList<>();
     private Calendar calendar = Calendar.getInstance();
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
     private StringBuilder sb = new StringBuilder();
 
     private final Info info = new Info();
-    private  String line = "", con = "", dyn = "", menu = "",date = "", num;
-    private  double price = 0, distance = 0,speed = 0, gas = 0, resultGas;
-    private  int traffic = 0;
-    private  boolean conditioner = true, dynamicDriving = true;
+    private String line = "", con = "", dyn = "", menu = "", date = "", num;
+    private double price = 0, distance = 0, speed = 0, gas = 0, resultGas;
+    private int traffic = 0;
+    private boolean conditioner = true, dynamicDriving = true;
 
     Car() throws IOException {
     }
@@ -33,7 +30,7 @@ class Car {
 
 
     protected void priceGAS
-            (double dist, int traffic, double gasolinePrice, boolean conditioner, boolean dynamicDriving) {
+            (double dist, int traffic, double gasolinePrice, boolean conditioner, boolean dynamicDriving) throws IOException {
 
         if (conditioner) {
             setGas(getGas() + trafficCongestion[traffic - 1] + 0.5);
@@ -47,6 +44,7 @@ class Car {
         reportCity();
         setGas(0);
         setResultGas(0);
+        resetMenu();
     }
 
     // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
@@ -71,16 +69,17 @@ class Car {
             return speedCongestion[8];
         } else if (speed <= 200) {
             return speedCongestion[9];
-        } return 0;
+        }
+        return 0;
     }
 
     //highwayConsumption - высчитывает сколько потрачено литров бензина и денег на него двигаясь по трассе
     protected void highwayConsumption
-             (double speed, double distance, double price, boolean conditioner, boolean dynamicDriving) {
+    (double speed, double distance, double price, boolean conditioner, boolean dynamicDriving) throws IOException {
 
-       if (conditioner) {
-           setGas(getGas() + sc(speed) + 0.5);
-       } else setGas(getGas() + sc(speed));
+        if (conditioner) {
+            setGas(getGas() + sc(speed) + 0.5);
+        } else setGas(getGas() + sc(speed));
 
         if (dynamicDriving) {
             setGas(getGas() + 2.0);
@@ -90,17 +89,18 @@ class Car {
         reportHighway();
         setGas(0);
         setResultGas(0);
+        resetMenu();
     }
 
     protected void ifConditioner(String incomingStream) {
         setCon(incomingStream);
-        if (getCon().matches("on")|| getCon().matches("off")) {
+        if (getCon().matches("on") || getCon().matches("off")) {
             if (getCon().matches("on")) {
                 setConditioner(true);
             } else if (getCon().matches("off")) {
                 setConditioner(false);
             }
-        }else {
+        } else {
             getInfo().error();
             setCon("");
         }
@@ -121,13 +121,13 @@ class Car {
         }
     }
 
-    protected void returnMenu(String incomingStream){
+    protected void returnMenu(String incomingStream) {
         setMenu(incomingStream);
         if (getMenu().matches("yes") || getMenu().matches("no")) {
             // if "yes" -> reset fields and return menu
             // if "no" -> exit program
             if (getMenu().matches("yes")) {
-                System.out.println();
+
                 setDistance(0);
                 setSpeed(0);
                 setTraffic(0);
@@ -138,7 +138,7 @@ class Car {
                 setDate("");
             } else {
                 getInfo().goodBay();
-                setLine("3");
+                setLine("5");
             }
         } else {
             getInfo().error();
@@ -146,7 +146,7 @@ class Car {
         }
     }
 
-    protected void getDoublePrice(String StringNumPrice){
+    protected void getDoublePrice(String StringNumPrice) {
         setNum(StringNumPrice);
 
         if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
@@ -158,7 +158,7 @@ class Car {
         }
     }
 
-    protected void getDoubleSpeed(String StringNumSpeed){
+    protected void getDoubleSpeed(String StringNumSpeed) {
         setNum(StringNumSpeed);
 
         if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
@@ -170,7 +170,7 @@ class Car {
         }
     }
 
-    protected void getDoubleDistance(String StringNumDistance){
+    protected void getDoubleDistance(String StringNumDistance) {
         setNum(StringNumDistance);
 
         if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
@@ -182,7 +182,7 @@ class Car {
         }
     }
 
-    protected void getIntegerTraffic(String StringNumTraffic){
+    protected void getIntegerTraffic(String StringNumTraffic) {
         setNum(StringNumTraffic);
         if (getNum().matches("\\d") && Integer.parseInt(getNum()) > 0 && Integer.parseInt(getNum()) < 11) {
             setTraffic(Integer.parseInt(getNum()));
@@ -192,31 +192,55 @@ class Car {
         }
     }
 
-    protected void resetMenu(){
+    protected void resetMenu() {
         setMenu("");
     }
 
     protected void addResult(String needSave) {
         getResult().add(needSave);
     }
-    protected void outDispleyResult(){
-        for (String s : getResult()) {
-            System.out.println(s);
+
+    protected void outDisplayResult() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try(Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")){
+            int data = reader.read();
+            while (data != -1){
+                sb.append((char) data);
+                data = reader.read();
+            }
+            System.out.println(sb);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    protected void saveReport(String line) throws IOException {
+        try(Writer reportFile = new FileWriter
+                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",true)){
+            reportFile.write(line);
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     protected void cleanResult() {
-        getResult().clear();
+        try(Writer reportFile = new FileWriter
+                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",false)){
+            reportFile.write("");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    protected void removeResult(int num){
+    protected void removeResult(int num) {
         getResult().remove(num);
     }
 
-    protected void todayDate(String date)  {
+    protected void todayDate(String date) {
         isDateValid(date);
 
-        if (isDateValid(date)){
+        if (isDateValid(date)) {
             setDate(date);
         } else {
             getInfo().error();
@@ -224,8 +248,7 @@ class Car {
         }
     }
 
-    protected static boolean isDateValid(String date)
-    {
+    protected static boolean isDateValid(String date) {
         try {
             DateFormat df = new SimpleDateFormat("d.M.yyyy");
             df.setLenient(false);
@@ -236,25 +259,26 @@ class Car {
         }
     }
 
-    protected void reportCity() {
+    protected void reportCity() throws IOException {
         sb.append("=============================================\n");
         sb.append(getDate()).append("\n");
         sb.append("За пройденный путь в населенном пункте вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
         sb.append(String.format("Денег: %.2f рублей\n", getResultGas()));
-        sb.append("=============================================\n");
-        addResult(sb.toString());
+        sb.append("=============================================\n\n");
+        saveReport(sb.toString());
         System.out.println(sb.toString());
         sb.setLength(0);
     }
-    protected void reportHighway() {
+
+    protected void reportHighway() throws IOException {
         sb.append("=============================================\n");
         sb.append(getDate()).append("\n");
         sb.append("За пройденный путь по трассе вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
         sb.append(String.format("Денег: %.2f рублей\n", getResultGas()));
-        sb.append("=============================================\n");
-        addResult(sb.toString());
+        sb.append("=============================================\n\n");
+        saveReport(sb.toString());
         System.out.println(sb.toString());
         sb.setLength(0);
     }

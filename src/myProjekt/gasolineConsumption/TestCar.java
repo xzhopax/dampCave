@@ -1,22 +1,24 @@
 package myProjekt.gasolineConsumption;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class TestCar {
 
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         Car car = new Car();
         Info info = new Info();
 
+
         while (!car.getLine().matches("5")) { //start initialization line (menu)
             info.menu();
             car.setLine(reader.readLine());
-            car.resetMenu();
+
 
             // checking for an integer from 1 to 3, if the number is correct, then it goes to the corresponding case
             if (car.getLine().matches("\\d") &&
@@ -82,7 +84,6 @@ public class TestCar {
                         } // end initialization menu
                         break; // end case 1
 
-
                     case 2: //Calculating the cost of gasoline on the highway
                         info.spendingOnTheHighway();
 
@@ -141,10 +142,12 @@ public class TestCar {
                         break;
 
                     case 3:
-                        car.outDispleyResult();
+                        car.outDisplayResult();
+                        break;
 
                     case 4:
                         car.cleanResult();
+                        break;
 
                     case 5: // exit the program.
                         info.goodBay();
