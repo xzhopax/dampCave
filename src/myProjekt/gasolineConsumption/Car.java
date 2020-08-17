@@ -20,7 +20,7 @@ class Car {
     private StringBuilder sb = new StringBuilder();
 
     private final Info info = new Info();
-    private String line = "", con = "", dyn = "", menu = "", date = "", num;
+    private String line = "", con = "", dyn = "", menu = "", date = "", reset = "", num;
     private double price = 0, distance = 0, speed = 0, gas = 0, resultGas;
     private int traffic = 0;
     private boolean conditioner = true, dynamicDriving = true;
@@ -229,15 +229,25 @@ class Car {
         }
     }
 
-    protected void cleanResult() {
-        setAllMoney(0);
-        setAllGas(0);
-        try(Writer reportFile = new FileWriter
-                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",false)){
-            reportFile.write("");
-        }catch (IOException e) {
-            e.printStackTrace();
+    protected void cleanResult(String incomingStream) {
+        setReset(incomingStream);
+        if (getReset().matches("yes") || getReset().matches("no")) {
+            if (getReset().matches("yes")) {
+                setAllMoney(0);
+                setAllGas(0);
+                try(Writer reportFile = new FileWriter
+                        ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",false)){
+                    reportFile.write("");
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            getInfo().error();
+            setReset("");
         }
+
+
     }
 
     protected void todayDate(String date) {
@@ -263,7 +273,7 @@ class Car {
     }
 
     protected void reportCity() throws IOException {
-        sb.append("=============================================\n");
+        sb.append("\n=============================================\n");
         sb.append(getDate()).append("\n");
         sb.append("За пройденный путь в населенном пункте вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
@@ -275,7 +285,7 @@ class Car {
     }
 
     protected void reportHighway() throws IOException {
-        sb.append("=============================================\n");
+        sb.append("\n=============================================\n");
         sb.append(getDate()).append("\n");
         sb.append("За пройденный путь по трассе вы потратили:\n");
         sb.append(String.format("Бензин : %.2f литров\n", getGas()));
@@ -294,7 +304,7 @@ class Car {
     }
 
 
-    @Override
+    @Override // need rewrite
     public String toString() {
         return "Car{" +
                 "trafficCongestion=" + Arrays.toString(trafficCongestion) +
@@ -449,5 +459,13 @@ class Car {
 
     protected static void setAllMoney(double allMoney) {
         Car.allMoney = allMoney;
+    }
+
+    protected String getReset() {
+        return reset;
+    }
+
+    protected void setReset(String reset) {
+        this.reset = reset;
     }
 }

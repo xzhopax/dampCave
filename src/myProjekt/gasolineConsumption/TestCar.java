@@ -140,13 +140,17 @@ public class TestCar {
                         break;
 
                     case 3:
+                        // show report
                         car.outDisplayReport();
                         car.reportTheTotal();
                         break;
 
                     case 4:
-                        car.cleanResult();
-
+                        while (car.getReset().equals("")) { // start initialization reset
+                            info.resetDisplay();
+                            car.setReset(reader.readLine());
+                            car.cleanResult(car.getReset());
+                        } // end initialization reset
                         break;
 
                     case 5: // exit the program.

@@ -71,4 +71,8 @@ public class Info {
     protected void enteredDate(){
         System.out.print("Введите дату (пример: 25.11.2011) :");
     }
+
+    protected void resetDisplay() {
+        System.out.print("Вы точно хотите удалить записи? (yes или no) :");
+    }
 }
