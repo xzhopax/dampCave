@@ -38,21 +38,24 @@ public class TestCar {
                         while (car.getDistance() == 0) { // start initialization dist
                             info.inDistanceTraveled();
                             car.setNum(reader.readLine());
-                            car.getDoubleDistance(car.getNum());
+                            //car.getDoubleDistance(car.getNum());
+                           car.setDistance(car.getValue(car.getNum(),car.getDistance()));
                         } // end initialization dist
 
                         // write traffic
                         while (car.getTraffic() == 0) { // start traffic
                             info.inTrafficRoad();
                             car.setNum(reader.readLine());
-                            car.getIntegerTraffic(car.getNum());
+                            //car.getIntegerTraffic(car.getNum());
+                            car.setTraffic(car.getValue(car.getNum(),car.getTraffic()));
                         } // end initialization traffic
 
                         // write date price
                         while (car.getPrice() == 0) { // start initialization price
                             info.inPriceGas();
                             car.setNum(reader.readLine());
-                            car.getDoublePrice(car.getNum());
+//                            car.getDoublePrice(car.getNum());
+                            car.setPrice(car.getValue(car.getNum(),car.getPrice()));
                         } // end initialization price;
 
                         // write conditioner (on or off)
@@ -67,6 +70,7 @@ public class TestCar {
                             info.dynamicDrive();
                             car.setDyn(reader.readLine());
                             car.ifDynamicDriving(car.getDyn());
+
                         } // end initialization dynamicDriving
 
                         // write the entered arguments into the method and get the result:
@@ -96,21 +100,21 @@ public class TestCar {
                         while (car.getSpeed() == 0) { // start initialization speed
                             info.inSpeed();
                             car.setNum(reader.readLine());
-                            car.getDoubleSpeed(car.getNum());
+                            car.setSpeed(car.getValue(car.getNum(),car.getSpeed()));
                         } // end initialization speed
 
                         // write distance
                         while (car.getDistance() == 0) { // start initialization distance
                             info.inDistanceTraveled();
                             car.setNum(reader.readLine());
-                            car.getDoubleDistance(car.getNum());
+                            car.setDistance(car.getValue(car.getNum(),car.getDistance()));
                         } // end initialization distance
 
                         // write price
                         while (car.getPrice() == 0) { // start initialization price
                             info.inPriceGas();
                             car.setNum(reader.readLine());
-                            car.getDoublePrice(car.getNum());
+                            car.setPrice(car.getValue(car.getNum(),car.getPrice()));
                         } // end initialization price;
 
                         // write conditioner (on or off)
@@ -143,6 +147,8 @@ public class TestCar {
                         // show report
                         car.outDisplayReport();
                         car.reportTheTotal();
+//                        String s = "Бензин : 129,96 литров";
+//                        car.findNumbers(s);
                         break;
 
                     case 4:

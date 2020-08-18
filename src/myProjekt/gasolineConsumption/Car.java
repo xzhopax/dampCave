@@ -6,10 +6,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Car {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
+
     private final double[] trafficCongestion = new double[]{7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 15.0, 16.0, 18.0, 20.0};
     private final double[] speedCongestion = new double[]{9.5, 6.0, 4.8, 4.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.5};
     private static double allGas;
@@ -43,16 +46,25 @@ class Car {
         }
         setGas((getGas() / 100) * dist);
         setResultGas(getGas() * gasolinePrice);
-        countTheTotal(getGas(),getResultGas());
         reportCity();
         setGas(0);
         setResultGas(0);
         resetMenu();
     }
 
-    private void countTheTotal(double gas, double money){
-        setAllMoney(getAllMoney() + money);
-        setAllGas(getAllGas() + gas);
+//    private void countTheTotal(double gas, double money){
+//        setAllMoney(getAllMoney() + money);
+//        setAllGas(getAllGas() + gas);
+//    }
+//    private void countAllMoney(double money){
+//        setAllMoney(getAllMoney() + money);
+//    }
+//    private void countAllGas(double gas){
+//        setAllGas(getAllMoney() + gas);
+//    }
+    protected double countNumber(double number, double resultNumber){
+        resultNumber = resultNumber + number;
+        return resultNumber;
     }
 
     // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
@@ -94,7 +106,6 @@ class Car {
         }
         setGas((getGas() / 100) * distance);
         setResultGas(getGas() * price);
-        countTheTotal(getGas(),getResultGas());
         reportHighway();
         setGas(0);
         setResultGas(0);
@@ -154,71 +165,78 @@ class Car {
             setMenu("");
         }
     }
-
-    protected void getDoublePrice(String StringNumPrice) {
-        setNum(StringNumPrice);
-
-        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
-                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
-            setPrice(Double.parseDouble(getNum()));
+    protected double getValue(String StringNumPrice, double result){
+        if (StringNumPrice.matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
+                || StringNumPrice.matches("\\d+") && Integer.parseInt(getNum()) > 0) {
+            result = Double.parseDouble(getNum());
         } else {
             getInfo().error();
-            setPrice(0);
+            result = 0;
         }
+        return result;
     }
-
-    protected void getDoubleSpeed(String StringNumSpeed) {
-        setNum(StringNumSpeed);
-
-        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
-                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
-            setSpeed(Double.parseDouble(getNum()));
+    protected int getValue(String StringNumPrice, int result){
+        if (StringNumPrice.matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
+                || StringNumPrice.matches("\\d+") && Integer.parseInt(getNum()) > 0) {
+            result = Integer.parseInt(getNum());
         } else {
             getInfo().error();
-            setSpeed(0);
+            result = 0;
         }
+        return result;
     }
 
-    protected void getDoubleDistance(String StringNumDistance) {
-        setNum(StringNumDistance);
+//    protected void getDoublePrice(String StringNumPrice) {
+//        setNum(StringNumPrice);
+//
+//        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
+//                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
+//            setPrice(Double.parseDouble(getNum()));
+//        } else {
+//            getInfo().error();
+//            setPrice(0);
+//        }
+//    }
 
-        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
-                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
-            setDistance(Double.parseDouble(getNum()));
-        } else {
-            getInfo().error();
-            setDistance(0);
-        }
-    }
+//    protected void getDoubleSpeed(String StringNumSpeed) {
+//        setNum(StringNumSpeed);
+//
+//        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
+//                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
+//            setSpeed(Double.parseDouble(getNum()));
+//        } else {
+//            getInfo().error();
+//            setSpeed(0);
+//        }
+//    }
 
-    protected void getIntegerTraffic(String StringNumTraffic) {
-        setNum(StringNumTraffic);
-        if (getNum().matches("\\d") && Integer.parseInt(getNum()) > 0 && Integer.parseInt(getNum()) < 11) {
-            setTraffic(Integer.parseInt(getNum()));
-        } else {
-            getInfo().error();
-            setTraffic(0);
-        }
-    }
+//    protected void getDoubleDistance(String StringNumDistance) {
+//        setNum(StringNumDistance);
+//
+//        if (getNum().matches("(\\d+(\\.\\d+))") && Double.parseDouble(getNum()) > 0
+//                || getNum().matches("\\d+") && Integer.parseInt(getNum()) > 0) {
+//            setDistance(Double.parseDouble(getNum()));
+//        } else {
+//            getInfo().error();
+//            setDistance(0);
+//        }
+//    }
+
+//    protected void getIntegerTraffic(String StringNumTraffic) {
+//        setNum(StringNumTraffic);
+//        if (getNum().matches("\\d") && Integer.parseInt(getNum()) > 0 && Integer.parseInt(getNum()) < 11) {
+//            setTraffic(Integer.parseInt(getNum()));
+//        } else {
+//            getInfo().error();
+//            setTraffic(0);
+//        }
+//    }
 
     protected void resetMenu() {
         setMenu("");
     }
 
-    protected void outDisplayReport() throws IOException {
-        StringBuilder sb = new StringBuilder();
-        try(Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")){
-            int data = reader.read();
-            while (data != -1){
-                sb.append((char) data);
-                data = reader.read();
-            }
-            System.out.println(sb);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
 
-    }
 
     protected void saveReport(String line) throws IOException {
         try(Writer reportFile = new FileWriter
@@ -246,8 +264,6 @@ class Car {
             getInfo().error();
             setReset("");
         }
-
-
     }
 
     protected void todayDate(String date) {
@@ -296,6 +312,24 @@ class Car {
         sb.setLength(0);
     }
 
+    protected void outDisplayReport() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try(Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")){
+            int data = reader.read();
+            while (data != -1){
+                sb.append((char) data);
+                data = reader.read();
+            }
+            System.out.println(sb);
+            findInFileGasAndMoney(sb.toString());
+            setAllMoney(0);
+            setAllGas(0);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
     protected void reportTheTotal(){
         sb.append(String.format("Общая сумма денег была потрачена на бензин : %.2f\n", getAllMoney()));
         sb.append(String.format("Общее количество бензина израсходавано : %.2f", getAllGas()));
@@ -303,6 +337,40 @@ class Car {
         sb.setLength(0);
     }
 
+    protected void findInFileGasAndMoney(String str){
+        String regex1 = "(Бензин\\s*:\\s*(\\d+,?(\\d*)))";
+        String regex2 = "(Денег\\s*:\\s*(\\d+,?(\\d*)))";
+        Pattern pattern = Pattern.compile(regex1);
+        Matcher matcher1 = pattern.matcher(str);
+        Matcher matcher2 = Pattern.compile(regex2).matcher(str);
+        String s1, s2;
+
+        // find gas
+        while (matcher1.find()){ //start while find gas
+            s1= matcher1.group();
+            String[] arrOfStr = s1.split(":\\s?");
+            for (String s : arrOfStr) {
+                s = s.replaceAll(",",".");
+                if (s.matches("(\\d+(\\.?\\d+))")) {
+                    // countAllMoney(Double.parseDouble(s));
+                    setAllGas(countNumber(Double.parseDouble(s),getAllGas()));
+                }
+            }
+        }//end while find money
+
+        //find money
+        while (matcher2.find()){ //start while find money
+            s2= matcher2.group();
+            String[] arrOfStr = s2.split(":\\s?");
+            for (String s : arrOfStr) {
+                s = s.replaceAll(",",".").trim();
+                if (s.matches("(\\d+(\\.?\\d+))")) {
+                    //countAllMoney(Double.parseDouble(s));
+                    setAllMoney(countNumber(Double.parseDouble(s),getAllMoney()));
+                }
+            }
+        } //end while find money
+    }
 
     @Override // need rewrite
     public String toString() {
