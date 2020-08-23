@@ -15,16 +15,16 @@ public class TestCar {
                 MenuGUI gui = null;
                 try {
                     gui = new MenuGUI();
+                    gui.setVisible(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                gui.setVisible(true);
             }
         });
 
 
 
-
+//
 //        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //
 //        Car car = new Car();
@@ -170,11 +170,11 @@ public class TestCar {
 //                        break;
 //
 //                    case 4:
-//                        while (car.getReset().equals("")) { // start initialization reset
-//                            info.resetDisplay();
-//                            car.setReset(reader.readLine());
-//                            car.cleanResult(car.getReset());
-//                        } // end initialization reset
+////                        while (car.getReset().equals("")) { // start initialization reset
+////                            info.resetDisplay();
+////                            car.setReset(reader.readLine());
+////                            car.cleanResult(car.getReset());
+////                        } // end initialization reset
 //                        break;
 //
 //                    case 5: // exit the program.
