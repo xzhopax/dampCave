@@ -148,7 +148,7 @@ class Car extends JFrame {
         if (isDateValid(date)) {
             setDate(date);
         } else {
-            setDate("fail");
+            setDate("");
         }
     }
 
