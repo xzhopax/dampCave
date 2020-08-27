@@ -21,7 +21,8 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Введите дату (Пример 23.11.2014) :"/>
+          <text value="Введите дату :"/>
+          <toolTipText value="Пример : 23.11.2014"/>
         </properties>
       </component>
       <component id="fa74b" class="javax.swing.JTextField" binding="textDate">
@@ -30,14 +31,18 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+          <toolTipText value="Пример : 23.11.2014"/>
+        </properties>
       </component>
       <component id="a12e9" class="javax.swing.JLabel" binding="inSpeed">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="   Введите среднюю скорость в км/ч от 0 до 200 :"/>
+          <toolTipText value="Введите среднюю скорость движения на протяжении пути.&#10;Пример : 123 или 123.6"/>
         </properties>
       </component>
       <component id="2df14" class="javax.swing.JTextField" binding="textSpeed">
@@ -46,7 +51,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Введите среднюю скорость движения на протяжении пути. Пример : 123 или 123.6"/>
+        </properties>
       </component>
       <component id="88119" class="javax.swing.JLabel" binding="inDistance">
         <constraints>
@@ -54,6 +61,7 @@
         </constraints>
         <properties>
           <text value="Введите пройденный путь в км :"/>
+          <toolTipText value="Пример : 67 или 67.5"/>
         </properties>
       </component>
       <component id="ec570" class="javax.swing.JTextField" binding="textDistance">
@@ -62,7 +70,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Пример : 67 или 67.5"/>
+        </properties>
       </component>
       <component id="91ce7" class="javax.swing.JLabel" binding="inPrice">
         <constraints>
@@ -70,6 +80,7 @@
         </constraints>
         <properties>
           <text value="Введите стоимость бенизана за 1 литр :"/>
+          <toolTipText value="Пример : 47 или 47.67"/>
         </properties>
       </component>
       <component id="c6699" class="javax.swing.JTextField" binding="textPrice">
@@ -78,7 +89,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Пример : 47 или 47.67"/>
+        </properties>
       </component>
       <component id="45b0" class="javax.swing.JLabel" binding="isConditioner">
         <constraints>
@@ -86,6 +99,7 @@
         </constraints>
         <properties>
           <text value="Кондиционер включен или выключен? :"/>
+          <toolTipText value="Использовался кондиционер или нет ( можно отнести открытые окна при скорости выше 80 км/ч)"/>
         </properties>
       </component>
       <component id="68ddc" class="javax.swing.JRadioButton" binding="conditionerON">
@@ -94,6 +108,7 @@
         </constraints>
         <properties>
           <text value="Включен"/>
+          <toolTipText value="Включен"/>
         </properties>
       </component>
       <component id="63d0" class="javax.swing.JRadioButton" binding="conditionerOFF">
@@ -102,6 +117,7 @@
         </constraints>
         <properties>
           <text value="Выключен"/>
+          <toolTipText value="Выключен"/>
         </properties>
       </component>
       <component id="b1d90" class="javax.swing.JLabel" binding="isDynamicDriving">
@@ -110,6 +126,7 @@
         </constraints>
         <properties>
           <text value="Динамичная еда? :"/>
+          <toolTipText value="Резкие старты на светофоре, динамичные разгоны, агрессивная езда"/>
         </properties>
       </component>
       <component id="f86e5" class="javax.swing.JRadioButton" binding="dynamicDrivingON">
@@ -117,7 +134,8 @@
           <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="да"/>
+          <text value="Да"/>
+          <toolTipText value="Да"/>
         </properties>
       </component>
       <component id="99233" class="javax.swing.JRadioButton" binding="dynamicDrivingOFF">
@@ -126,6 +144,7 @@
         </constraints>
         <properties>
           <text value="Нет"/>
+          <toolTipText value="Нет"/>
         </properties>
       </component>
       <component id="362" class="javax.swing.JButton" binding="start">
@@ -134,6 +153,7 @@
         </constraints>
         <properties>
           <text value="Расчитать"/>
+          <toolTipText value="Узнать результат затрат"/>
         </properties>
       </component>
       <component id="82476" class="javax.swing.JLabel" binding="errorDate">
@@ -176,12 +196,13 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="90bdf" class="javax.swing.JLabel" binding="nameProgram">
+      <component id="90bdf" class="javax.swing.JLabel" binding="authorProgram">
         <constraints>
-          <grid row="14" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="14" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Damp Cave"/>
+          <text value="."/>
+          <toolTipText value="автор Damp Cave"/>
         </properties>
       </component>
       <component id="94e30" class="javax.swing.JButton" binding="returnMenu">
@@ -190,6 +211,7 @@
         </constraints>
         <properties>
           <text value="Вернуться в меню"/>
+          <toolTipText value="Вернуться в главное меню"/>
         </properties>
       </component>
       <hspacer id="6d476">
@@ -197,6 +219,42 @@
           <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
+      <component id="b890" class="javax.swing.JLabel" binding="inDateQuestion">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="?"/>
+          <toolTipText value="Пример : 23.11.2014"/>
+        </properties>
+      </component>
+      <component id="83a03" class="javax.swing.JLabel" binding="speedQuestion">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="?"/>
+          <toolTipText value="Введите среднюю скорость движения на протяжении пути. Пример : 123 или 123.6"/>
+        </properties>
+      </component>
+      <component id="fc5e2" class="javax.swing.JLabel" binding="distanceQuestion">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="?"/>
+          <toolTipText value="Пример : 67 или 67.5"/>
+        </properties>
+      </component>
+      <component id="9b1c3" class="javax.swing.JLabel" binding="priceQuestion">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="?"/>
+          <toolTipText value="Пример : 47 или 47.67"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

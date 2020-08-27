@@ -16,6 +16,7 @@
         </constraints>
         <properties>
           <text value="Расчет затрат бензина в городе"/>
+          <toolTipText value="Перейти в раздел, для подсчета затрат бензина и денежных средств на него в населенном пункте"/>
         </properties>
       </component>
       <component id="44ad1" class="javax.swing.JButton" binding="onHighway">
@@ -24,6 +25,7 @@
         </constraints>
         <properties>
           <text value="Расчет затрат бензина на трассе"/>
+          <toolTipText value="Перейти в раздел, для подсчета затрат бензина и денежных средств на него при езде по трассе"/>
         </properties>
       </component>
       <component id="afbff" class="javax.swing.JButton" binding="deleteHistory">
@@ -32,6 +34,7 @@
         </constraints>
         <properties>
           <text value="Очистить историю"/>
+          <toolTipText value="очистить историю поездок"/>
         </properties>
       </component>
       <component id="3b682" class="javax.swing.JButton" binding="exit">
@@ -40,6 +43,7 @@
         </constraints>
         <properties>
           <text value="Выход из программы"/>
+          <toolTipText value="Выход из программы"/>
         </properties>
       </component>
       <component id="51aa7" class="javax.swing.JButton" binding="showHistory">
@@ -48,6 +52,7 @@
         </constraints>
         <properties>
           <text value="Посмотреть историю"/>
+          <toolTipText value="Открыть историю поездок"/>
         </properties>
       </component>
       <component id="7cf62" class="javax.swing.JLabel" binding="menu">
@@ -72,6 +77,15 @@
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
+      <component id="29b1e" class="javax.swing.JLabel" binding="authorProgram">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="."/>
+          <toolTipText value="автор Damp Cave"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

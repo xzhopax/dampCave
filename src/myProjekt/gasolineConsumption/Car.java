@@ -2,48 +2,60 @@ package myProjekt.gasolineConsumption;
 
 import javax.swing.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Car extends JFrame {
 
     // double[] trafficCongestion - расход бензина в зависимости от загруженности дорог
-
     private final double[] trafficCongestion = new double[]{7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 15.0, 16.0, 18.0, 20.0};
+    //double[] speedCongestion - gasoline consumption depending on speed
     private final double[] speedCongestion = new double[]{9.5, 6.0, 4.8, 4.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.5};
     private static double allGas;
     private static double allMoney;
 
-    private Calendar calendar = Calendar.getInstance();
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
-    private StringBuilder sb = new StringBuilder();
-
-    private final Info info = new Info();
-    private String line = "", con = "", dyn = "", menu = "", date = "", reset = "", num;
+    private final StringBuilder sb = new StringBuilder();
+    private String date = "";
     private double price = 0, distance = 0, speed = 0, gas = 0, resultGas = 0;
     private int traffic = 0;
     private boolean conditioner = true, dynamicDriving = true;
 
-    Car() throws IOException {
-    }
+    //priceGAS - we calculate the number of liters of gasoline
+    // and money spent on the distance traveled in the city (VW polo)
+    protected void priceInCityGAS // start priceInCityGAS
+    (double distance, int traffic, double gasolinePrice, boolean conditioner, boolean dynamicDriving) {
 
+        if (conditioner) {
+            setGas(getGas() + trafficCongestion[traffic - 1] + 0.5);
+        } else setGas(getGas() + trafficCongestion[traffic - 1]);
 
-    protected void resetGasAndResultGas(){
-        setGas(0);
-        setResultGas(0);
-    }
+        if (dynamicDriving) {
+            setGas(getGas() + 2.0);
+        }
+        setGas((getGas() / 100) * distance);
+        setResultGas(getGas() * gasolinePrice);
+    } // end priceInCityGAS
 
-    protected double countNumber(double number, double resultNumber){
-        resultNumber = resultNumber + number;
-        return resultNumber;
-    }
+    //highwayConsumption - calculates how many liters of gasoline and money spent on it while
+    // moving along the highway (VW polo)
+    protected void priceOnHighwayGAS // start priceOnHighwayGAS
+    (double speed, double distance, double price, boolean conditioner, boolean dynamicDriving) {
 
-    // double sc - высчитывает расход бензина в зависимости от скорости (VW polo)
+        if (conditioner) {
+            setGas(getGas() + sc(speed) + 0.5);
+        } else setGas(getGas() + sc(speed));
+
+        if (dynamicDriving) {
+            setGas(getGas() + 2.0);
+        }
+        setGas((getGas() / 100) * distance);
+        setResultGas(getGas() * price);
+    }// end priceOnHighwayGAS
+
+    // double sc - calculates gas mileage depending on speed (VW polo)
     private double sc(double speed) {
         if (speed <= 10 && speed >= 0) {
             return speedCongestion[0];
@@ -67,91 +79,30 @@ class Car extends JFrame {
             return speedCongestion[9];
         }
         return 0;
-    }
+    } // end private double sc(double speed)
 
-    //priceGAS - высчитываем кол-во литров бензина и потраченных денег на пройденный путь в городе (VW polo)
-    protected void priceInCityGAS
-    (double distance, int traffic, double gasolinePrice, boolean conditioner, boolean dynamicDriving) throws IOException {
-
-        if (conditioner) {
-            setGas(getGas() + trafficCongestion[traffic - 1] + 0.5);
-        } else setGas(getGas() + trafficCongestion[traffic - 1]);
-
-        if (dynamicDriving) {
-            setGas(getGas() + 2.0);
-        }
-        setGas((getGas() / 100) * distance);
-        setResultGas(getGas() * gasolinePrice);
-    }
-
-    //highwayConsumption - высчитывает сколько потрачено литров бензина и денег на него двигаясь по трассе (VW polo)
-    protected void priceOnHighwayGAS
-    (double speed, double distance, double price, boolean conditioner, boolean dynamicDriving) throws IOException {
-
-        if (conditioner) {
-            setGas(getGas() + sc(speed) + 0.5);
-        } else setGas(getGas() + sc(speed));
-
-        if (dynamicDriving) {
-            setGas(getGas() + 2.0);
-        }
-        setGas((getGas() / 100) * distance);
-        setResultGas(getGas() * price);
-    }
-
-    protected double validDouble(String StringNumPrice){
+    //checking a string for a number double
+    protected double validDouble(String StringNumPrice) {
         double result = 0;
         if (StringNumPrice.matches("(\\d+(\\.\\d+))") && Double.parseDouble(StringNumPrice) > 0
                 || StringNumPrice.matches("\\d+") && Integer.parseInt(StringNumPrice) > 0) {
             result = Double.parseDouble(StringNumPrice);
-             return result;
+            return result;
         }
         return result;
-    }
+    }// end validDouble
 
-    protected int validInteger(String StringNumPrice){
+    //checking a string for a number integer
+    protected int validInteger(String StringNumPrice) {
         int result = 0;
         if (StringNumPrice.matches("\\d+") && Integer.parseInt(StringNumPrice) > 0) {
             result = Integer.parseInt(StringNumPrice);
             return result;
         }
         return result;
-    }
+    }// end validInteger
 
-//    protected void resetMenu() {
-//        setMenu("");
-//    }
-
-
-    protected void saveReport(String line) throws IOException {
-        try(Writer reportFile = new FileWriter
-                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",true)){
-            reportFile.write(line);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected void cleanResult() {
-                setAllMoney(0);
-                setAllGas(0);
-                try(Writer reportFile = new FileWriter
-                        ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt",false)){
-                    reportFile.write("");
-                }catch (IOException e) {
-                    e.printStackTrace();
-        }
-    }
-
-    protected void todayDate(String date) {
-        isDateValid(date);
-        if (isDateValid(date)) {
-            setDate(date);
-        } else {
-            setDate("");
-        }
-    }
-
+    //checking if the date is entered correctly
     protected static boolean isDateValid(String date) {
         try {
             DateFormat df = new SimpleDateFormat("d.M.yyyy");
@@ -161,9 +112,92 @@ class Car extends JFrame {
         } catch (ParseException e) {
             return false;
         }
-    }
+    }// end isDateValid
 
-    protected String reportCity() throws IOException {
+    // if the date is entered correctly, it saves it to a variable
+    protected void todayDate(String date) {
+        isDateValid(date);
+        if (isDateValid(date)) {
+            setDate(date);
+        } else {
+            setDate("");
+        }
+    }// end todayDate
+
+    protected double countNumber(double number, double resultNumber) {
+        resultNumber = resultNumber + number;
+        return resultNumber;
+    }// end countNumber
+
+    //reset static variable total gasoline and total money
+    protected void resetGasAndResultGas() {
+        setGas(0);
+        setResultGas(0);
+    }// end resetGasAndResultGas
+
+    // searches the history file for gasoline and the money spent on it,
+    // for writing them into variables to display all costs
+    protected void findInFileGasAndMoney(String str) {
+        String regex1 = "(Бензин\\s*:\\s*(\\d+,?(\\d*)))";
+        String regex2 = "(Денег\\s*:\\s*(\\d+,?(\\d*)))";
+        Pattern pattern = Pattern.compile(regex1);
+        Matcher matcher1 = pattern.matcher(str);
+        Matcher matcher2 = Pattern.compile(regex2).matcher(str);
+        String s1, s2;
+
+        // find gas
+        while (matcher1.find()) { //start while find gas
+            s1 = matcher1.group();
+            String[] arrOfStr = s1.split(":\\s?");
+            for (String s : arrOfStr) {
+                s = s.replaceAll(",", ".");
+                if (s.matches("(\\d+(\\.?\\d+))")) {
+                    // countAllMoney(Double.parseDouble(s));
+                    setAllGas(countNumber(Double.parseDouble(s), getAllGas()));
+                }
+            }
+        }//end while find money
+
+        //find money
+        while (matcher2.find()) { //start while find money
+            s2 = matcher2.group();
+            String[] arrOfStr = s2.split(":\\s?");
+            for (String s : arrOfStr) {
+                s = s.replaceAll(",", ".").trim();
+                if (s.matches("(\\d+(\\.?\\d+))")) {
+                    //countAllMoney(Double.parseDouble(s));
+                    setAllMoney(countNumber(Double.parseDouble(s), getAllMoney()));
+                }
+            }
+        } //end while find money
+    }// end findInFileGasAndMoney
+
+    //save the report to a file
+    protected void saveReport(String line) {// start save report
+        try (Writer reportFile = new FileWriter
+                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt", true)) {
+            reportFile.write(line);
+        } catch (IOException e) {
+            MenuGUI.error();
+            e.printStackTrace();
+        }
+    }// end save report
+
+    // delete records from the file and reset the static fields to display the report history on the screen
+    protected void cleanResult() {// start clean
+        setAllMoney(0);
+        setAllGas(0);
+        try (Writer reportFile = new FileWriter
+                ("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt", false)) {
+            reportFile.write("");
+        } catch (IOException e) {
+            MenuGUI.error();
+            e.printStackTrace();
+        }
+    }// end clean
+
+    //city driving report for display
+    protected String reportCity() {
         sb.setLength(0);
         sb.append("\n=============================================\n");
         sb.append(getDate()).append("\n");
@@ -173,9 +207,10 @@ class Car extends JFrame {
         sb.append("=============================================\n");
         saveReport(sb.toString());
         return sb.toString();
-    }
+    } // end reportCity
 
-    protected String reportHighway() throws IOException {
+    //track driving report for display
+    protected String reportHighway() {
         sb.setLength(0);
         sb.append("\n=============================================\n");
         sb.append(getDate()).append("\n");
@@ -185,96 +220,36 @@ class Car extends JFrame {
         sb.append("=============================================\n");
         saveReport(sb.toString());
         return sb.toString();
+    } //end reportHighway
 
-    }
-
-    protected String outDisplayReport() throws IOException {
+    //reading history from a file to display it on the screen
+    protected String outDisplayReport() {
         StringBuilder sb = new StringBuilder();
-        try(Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")){
+        try (Reader reader = new FileReader("src/myProjekt/gasolineConsumption/reportFiles/reportFile.txt")) {
             int data = reader.read();
-            while (data != -1){
+            while (data != -1) {
                 sb.append((char) data);
                 data = reader.read();
             }
             findInFileGasAndMoney(sb.toString());
-        }catch (IOException e){
+        } catch (IOException e) {
+            MenuGUI.error();
             e.printStackTrace();
         }
         return sb.toString();
-    }
+    }//end outDisplayReport
 
-    protected String reportTheTotal(){
+    //displays the total amount of consumed gasoline and money spent on it
+    protected String reportTheTotal() {
         sb.setLength(0);
         sb.append(String.format("Общая сумма денег была потрачена на бензин : %.2f\n", getAllMoney()));
-        sb.append(String.format("Общее количество бензина израсходавано : %.2f", getAllGas()));
+        sb.append(String.format("Общее количество бензина израсходаванно : %.2f", getAllGas()));
         setAllMoney(0);
         setAllGas(0);
         return sb.toString();
-    }
-
-    protected void findInFileGasAndMoney(String str){
-        String regex1 = "(Бензин\\s*:\\s*(\\d+,?(\\d*)))";
-        String regex2 = "(Денег\\s*:\\s*(\\d+,?(\\d*)))";
-        Pattern pattern = Pattern.compile(regex1);
-        Matcher matcher1 = pattern.matcher(str);
-        Matcher matcher2 = Pattern.compile(regex2).matcher(str);
-        String s1, s2;
-
-        // find gas
-        while (matcher1.find()){ //start while find gas
-            s1= matcher1.group();
-            String[] arrOfStr = s1.split(":\\s?");
-            for (String s : arrOfStr) {
-                s = s.replaceAll(",",".");
-                if (s.matches("(\\d+(\\.?\\d+))")) {
-                    // countAllMoney(Double.parseDouble(s));
-                    setAllGas(countNumber(Double.parseDouble(s),getAllGas()));
-                }
-            }
-        }//end while find money
-
-        //find money
-        while (matcher2.find()){ //start while find money
-            s2= matcher2.group();
-            String[] arrOfStr = s2.split(":\\s?");
-            for (String s : arrOfStr) {
-                s = s.replaceAll(",",".").trim();
-                if (s.matches("(\\d+(\\.?\\d+))")) {
-                    //countAllMoney(Double.parseDouble(s));
-                    setAllMoney(countNumber(Double.parseDouble(s),getAllMoney()));
-                }
-            }
-        } //end while find money
-    }
-
-    @Override // need rewrite
-    public String toString() {
-        return "Car{" +
-                "trafficCongestion=" + Arrays.toString(trafficCongestion) +
-                ", speedCongestion=" + Arrays.toString(speedCongestion) +
-                ", calendar=" + calendar +
-                ", simpleDateFormat=" + simpleDateFormat +
-                ", info=" + info +
-                ", line='" + line + '\'' +
-                ", con='" + con + '\'' +
-                ", dyn='" + dyn + '\'' +
-                ", menu='" + menu + '\'' +
-                ", date='" + date + '\'' +
-                ", num='" + num + '\'' +
-                ", price=" + price +
-                ", distance=" + distance +
-                ", speed=" + speed +
-                ", traffic=" + traffic +
-                ", conditioner=" + conditioner +
-                ", dynamicDriving=" + dynamicDriving +
-                '}';
-    }
+    }//end reportTheTotal
 
     //down get and set
-
-    protected Info getInfo() {
-        return info;
-    }
 
     protected double getSpeed() {
         return speed;
@@ -282,46 +257,6 @@ class Car extends JFrame {
 
     protected void setSpeed(double speed) {
         this.speed = speed;
-    }
-
-    protected String getLine() {
-        return line;
-    }
-
-    protected void setLine(String line) {
-        this.line = line;
-    }
-
-    protected String getCon() {
-        return con;
-    }
-
-    protected void setCon(String con) {
-        this.con = con;
-    }
-
-    protected String getDyn() {
-        return dyn;
-    }
-
-    protected void setDyn(String dyn) {
-        this.dyn = dyn;
-    }
-
-    protected String getMenu() {
-        return menu;
-    }
-
-    protected void setMenu(String menu) {
-        this.menu = menu;
-    }
-
-    protected String getNum() {
-        return num;
-    }
-
-    protected void setNum(String num) {
-        this.num = num;
     }
 
     protected double getPrice() {
@@ -402,13 +337,5 @@ class Car extends JFrame {
 
     protected static void setAllMoney(double allMoney) {
         Car.allMoney = allMoney;
-    }
-
-    protected String getReset() {
-        return reset;
-    }
-
-    protected void setReset(String reset) {
-        this.reset = reset;
     }
 }
