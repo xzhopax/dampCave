@@ -1,36 +1,26 @@
 package testPackege;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Kata2 {
-    public static String alphabetWar(String fight){
-        int leftCount = 0;
-        int rightCount = 0;
-        Map<Character, Integer> left = new HashMap<Character, Integer>();
-        Map<Character, Integer> right = new HashMap<Character, Integer>();
-        left.put('w', 4);
-        left.put('p', 3);
-        left.put('b', 2);
-        left.put('s', 1);
-        right.put('m', 4);
-        right.put('q', 3);
-        right.put('d', 2);
-        right.put('z', 1);
+    public static int sortDesc(final int num) {
+        List<Integer> listInteger =  new ArrayList<>();
+        int saveNumber = num;
+        StringBuilder sb = new StringBuilder();
 
-        for (char ch: fight.toCharArray()){
-            if (left.containsKey(ch)){
-                leftCount = leftCount + left.get(ch);
+        if (num > 0) {
+            while (saveNumber != 0) {
+                listInteger.add(saveNumber % 10);
+                saveNumber /= 10;
             }
-            if (right.containsKey(ch)){
-                rightCount = rightCount + right.get(ch);
+            Collections.sort(listInteger);
+            Collections.reverse(listInteger);
+
+            for (int i : listInteger) {
+                sb.append(i);
             }
-        }
-        if (leftCount > rightCount){
-            return "Left side wins!";
-        } else if (rightCount > leftCount){
-            return "Right side wins!";
-        } else
-            return "Let's fight again!";
+
+            return Integer.parseInt(sb.toString());
+        } else return 0;
     }
 }
