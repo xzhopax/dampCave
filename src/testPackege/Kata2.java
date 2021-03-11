@@ -2,25 +2,16 @@ package testPackege;
 
 import java.util.*;
 
+//1 Imperial Gallon = 4.54609188 litres
+// 1 Mile = 1.609344 kilometres
+
 public class Kata2 {
-    public static int sortDesc(final int num) {
-        List<Integer> listInteger =  new ArrayList<>();
-        int saveNumber = num;
-        StringBuilder sb = new StringBuilder();
+    public static float mpgToKPM(final float mpg) {
 
-        if (num > 0) {
-            while (saveNumber != 0) {
-                listInteger.add(saveNumber % 10);
-                saveNumber /= 10;
-            }
-            Collections.sort(listInteger);
-            Collections.reverse(listInteger);
+        double km = mpg * 1.609344;
+        double litres = km / 4.54609188;
 
-            for (int i : listInteger) {
-                sb.append(i);
-            }
+        return Float.parseFloat(String.format("%.2f",litres).replace(",","."));
 
-            return Integer.parseInt(sb.toString());
-        } else return 0;
     }
 }
