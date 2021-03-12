@@ -3,8 +3,12 @@ package testPackege;
 public class Test {
 
     public static void main(String []args){
-        Kata.reverse_bits(417);
-        Kata.reverse_bits(267);
+
+        System.out.println(Kata.isDivisible(4050,27)); //true
+        System.out.println(Kata.isDivisible(10000,20)); //true
+        System.out.println(Kata.isDivisible(10005,1)); //true
+        System.out.println(Kata.isDivisible(4066,27)); //false
+
 
 
 

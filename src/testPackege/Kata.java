@@ -8,7 +8,9 @@ import java.util.*;
 
 public class Kata {
 
-    public static int reverse_bits(int n){
-        return Integer.parseInt(new StringBuilder(Integer.toBinaryString(n)).reverse().toString(),2);
+    public static boolean isDivisible(int wallLength, int pixelSize) {
+
+        return wallLength % pixelSize == 0;
     }
+
 }
