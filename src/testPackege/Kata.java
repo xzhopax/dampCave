@@ -13,14 +13,17 @@ import java.util.regex.Pattern;
 
 public class Kata {
 
-    public static String updateLight(String current) {
-        String GREEN ="green";
-        String YELLOW ="yellow";
-        String RED ="red";
+    public static String smash(String... words) {
 
-        return current.matches(RED) ? GREEN
-                : current.matches(YELLOW) ? RED
-                : YELLOW;
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : words){
+            sb.append(s).append(" ");
+        }
+
+        return sb.toString().trim();
+
+
     }
 
 }
