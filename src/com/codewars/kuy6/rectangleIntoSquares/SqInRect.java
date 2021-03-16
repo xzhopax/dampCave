@@ -50,7 +50,6 @@ public class SqInRect {
                     }
                     numberTwo += saveResult.get(count);
                     count--;
-
                 }
 
                 if ((numberOne - numberTwo) == 1) {
